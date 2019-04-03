@@ -1,0 +1,1234 @@
+[
+  {
+    "datasetid": "stations-de-metro",
+    "recordid": "9a18e86167b698c60836b1c17fec71be5a06c411",
+    "fields": {
+      "geo_shape": {
+        "type": "Point",
+        "coordinates": [
+          1.482839702384658,
+          43.62787709026881
+        ]
+      },
+      "nom": "GRAMONT",
+      "ligne": "A",
+      "etat": "Existant",
+      "geo_point_2d": [
+        43.62787709026881,
+        1.482839702384658
+      ]
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.482839702384658,
+        43.62787709026881
+      ]
+    },
+    "record_timestamp": "2017-12-31T14:18:25+01:00"
+  },
+  {
+    "datasetid": "stations-de-metro",
+    "recordid": "137cf6b683352229ade5ceb16c2c76dabee969d9",
+    "fields": {
+      "geo_shape": {
+        "type": "Point",
+        "coordinates": [
+          1.43554521891271,
+          43.61058450461812
+        ]
+      },
+      "nom": "COMPANS-CAFFARELLI",
+      "ligne": "B",
+      "etat": "Existant",
+      "geo_point_2d": [
+        43.61058450461812,
+        1.43554521891271
+      ]
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.43554521891271,
+        43.61058450461812
+      ]
+    },
+    "record_timestamp": "2017-12-31T14:18:25+01:00"
+  },
+  {
+    "datasetid": "stations-de-metro",
+    "recordid": "37d1ef83a9ab2a25a5b23c55165b59f676656a41",
+    "fields": {
+      "geo_shape": {
+        "type": "Point",
+        "coordinates": [
+          1.445558327257639,
+          43.597588238079204
+        ]
+      },
+      "nom": "CARMES",
+      "ligne": "B",
+      "etat": "Existant",
+      "geo_point_2d": [
+        43.597588238079204,
+        1.445558327257639
+      ]
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.445558327257639,
+        43.597588238079204
+      ]
+    },
+    "record_timestamp": "2017-12-31T14:18:25+01:00"
+  },
+  {
+    "datasetid": "stations-de-metro",
+    "recordid": "1325d82a2338277b216d7bbe35c2c24d578edf13",
+    "fields": {
+      "geo_shape": {
+        "type": "Point",
+        "coordinates": [
+          1.433957422993362,
+          43.62682259131135
+        ]
+      },
+      "nom": "BARRIERE DE PARIS",
+      "ligne": "B",
+      "etat": "Existant",
+      "geo_point_2d": [
+        43.62682259131135,
+        1.433957422993362
+      ]
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.433957422993362,
+        43.62682259131135
+      ]
+    },
+    "record_timestamp": "2017-12-31T14:18:25+01:00"
+  },
+  {
+    "datasetid": "stations-de-metro",
+    "recordid": "566d8048cc5f641f7c7c3a1437fd4173e2d2d4d9",
+    "fields": {
+      "geo_shape": {
+        "type": "Point",
+        "coordinates": [
+          1.435857526283014,
+          43.62035861911716
+        ]
+      },
+      "nom": "MINIMES",
+      "ligne": "B",
+      "etat": "Existant",
+      "geo_point_2d": [
+        43.62035861911716,
+        1.435857526283014
+      ]
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.435857526283014,
+        43.62035861911716
+      ]
+    },
+    "record_timestamp": "2017-12-31T14:18:25+01:00"
+  },
+  {
+    "datasetid": "stations-de-metro",
+    "recordid": "60a17972265e1ff822c2225158c957a23e4bd53a",
+    "fields": {
+      "geo_shape": {
+        "type": "Point",
+        "coordinates": [
+          1.463415877612224,
+          43.615298822378506
+        ]
+      },
+      "nom": "JOLIMONT",
+      "ligne": "A",
+      "etat": "Existant",
+      "geo_point_2d": [
+        43.615298822378506,
+        1.463415877612224
+      ]
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.463415877612224,
+        43.615298822378506
+      ]
+    },
+    "record_timestamp": "2017-12-31T14:18:25+01:00"
+  },
+  {
+    "datasetid": "stations-de-metro",
+    "recordid": "00b8f4bafc9527faeaa27991e5fb652c69846f07",
+    "fields": {
+      "geo_shape": {
+        "type": "Point",
+        "coordinates": [
+          1.44390189542811,
+          43.60023569604091
+        ]
+      },
+      "nom": "ESQUIROL",
+      "ligne": "A",
+      "etat": "Existant",
+      "geo_point_2d": [
+        43.60023569604091,
+        1.44390189542811
+      ]
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.44390189542811,
+        43.60023569604091
+      ]
+    },
+    "record_timestamp": "2017-12-31T14:18:25+01:00"
+  },
+  {
+    "datasetid": "stations-de-metro",
+    "recordid": "d80dc7eed938943725d03dccb699a07f6dade9bd",
+    "fields": {
+      "geo_shape": {
+        "type": "Point",
+        "coordinates": [
+          1.33398885050073,
+          43.60363591527083
+        ]
+      },
+      "nom": "GARE  CENTRALE",
+      "ligne": "C",
+      "etat": "Existant",
+      "geo_point_2d": [
+        43.60363591527083,
+        1.33398885050073
+      ]
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.33398885050073,
+        43.60363591527083
+      ]
+    },
+    "record_timestamp": "2017-12-31T14:18:25+01:00"
+  },
+  {
+    "datasetid": "stations-de-metro",
+    "recordid": "0f83651969fe0b1d7e063eb44322e4127149ab69",
+    "fields": {
+      "geo_shape": {
+        "type": "Point",
+        "coordinates": [
+          1.371847398141578,
+          43.59972040052954
+        ]
+      },
+      "nom": "SAINT-MARTIN DU TOUCH",
+      "ligne": "C",
+      "etat": "Existant",
+      "geo_point_2d": [
+        43.59972040052954,
+        1.371847398141578
+      ]
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.371847398141578,
+        43.59972040052954
+      ]
+    },
+    "record_timestamp": "2017-12-31T14:18:25+01:00"
+  },
+  {
+    "datasetid": "stations-de-metro",
+    "recordid": "da565870854e0baec184317a7d830da6c0ab2bc9",
+    "fields": {
+      "geo_shape": {
+        "type": "Point",
+        "coordinates": [
+          1.383674973295594,
+          43.596708717918354
+        ]
+      },
+      "nom": "LARDENNE",
+      "ligne": "C",
+      "etat": "Existant",
+      "geo_point_2d": [
+        43.596708717918354,
+        1.383674973295594
+      ]
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.383674973295594,
+        43.596708717918354
+      ]
+    },
+    "record_timestamp": "2017-12-31T14:18:25+01:00"
+  },
+  {
+    "datasetid": "stations-de-metro",
+    "recordid": "20f1a1ecddeab7a568cda611c0cbedd666551323",
+    "fields": {
+      "geo_shape": {
+        "type": "Point",
+        "coordinates": [
+          1.448796052013249,
+          43.60564629280286
+        ]
+      },
+      "nom": "JEAN JAURES",
+      "ligne": "B",
+      "etat": "Existant",
+      "geo_point_2d": [
+        43.60564629280286,
+        1.448796052013249
+      ]
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.448796052013249,
+        43.60564629280286
+      ]
+    },
+    "record_timestamp": "2017-12-31T14:18:25+01:00"
+  },
+  {
+    "datasetid": "stations-de-metro",
+    "recordid": "118a0607ee72e7db3494398a2caf65a5c7ab779d",
+    "fields": {
+      "geo_shape": {
+        "type": "Point",
+        "coordinates": [
+          1.444663633608499,
+          43.59229045419481
+        ]
+      },
+      "nom": "PALAIS DE JUSTICE",
+      "ligne": "B",
+      "etat": "Existant",
+      "geo_point_2d": [
+        43.59229045419481,
+        1.444663633608499
+      ]
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.444663633608499,
+        43.59229045419481
+      ]
+    },
+    "record_timestamp": "2017-12-31T14:18:25+01:00"
+  },
+  {
+    "datasetid": "stations-de-metro",
+    "recordid": "9ff81e7a73dcad4cc0ce72f79081991dd131b1cb",
+    "fields": {
+      "geo_shape": {
+        "type": "Point",
+        "coordinates": [
+          1.447060660669646,
+          43.58656821456067
+        ]
+      },
+      "nom": "SAINT MICHEL",
+      "ligne": "B",
+      "etat": "Existant",
+      "geo_point_2d": [
+        43.58656821456067,
+        1.447060660669646
+      ]
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.447060660669646,
+        43.58656821456067
+      ]
+    },
+    "record_timestamp": "2017-12-31T14:18:25+01:00"
+  },
+  {
+    "datasetid": "stations-de-metro",
+    "recordid": "20b2ff28665d550f4a81809205b704fc06c4f71c",
+    "fields": {
+      "geo_shape": {
+        "type": "Point",
+        "coordinates": [
+          1.449678013110295,
+          43.58026389556252
+        ]
+      },
+      "nom": "SAINT AGNE-SNCF",
+      "ligne": "B",
+      "etat": "Existant",
+      "geo_point_2d": [
+        43.58026389556252,
+        1.449678013110295
+      ]
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.449678013110295,
+        43.58026389556252
+      ]
+    },
+    "record_timestamp": "2017-12-31T14:18:25+01:00"
+  },
+  {
+    "datasetid": "stations-de-metro",
+    "recordid": "935f9e0cfdb287f42141a3bc326336f34da94b56",
+    "fields": {
+      "geo_shape": {
+        "type": "Point",
+        "coordinates": [
+          1.459262812488766,
+          43.579584533580615
+        ]
+      },
+      "nom": "SAOUZELONG",
+      "ligne": "B",
+      "etat": "Existant",
+      "geo_point_2d": [
+        43.579584533580615,
+        1.459262812488766
+      ]
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.459262812488766,
+        43.579584533580615
+      ]
+    },
+    "record_timestamp": "2017-12-31T14:18:25+01:00"
+  },
+  {
+    "datasetid": "stations-de-metro",
+    "recordid": "9afd2d758592d86427d96de68cd635c28c73071a",
+    "fields": {
+      "geo_shape": {
+        "type": "Point",
+        "coordinates": [
+          1.461855697009004,
+          43.57466583234915
+        ]
+      },
+      "nom": "RANGUEIL",
+      "ligne": "B",
+      "etat": "Existant",
+      "geo_point_2d": [
+        43.57466583234915,
+        1.461855697009004
+      ]
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.461855697009004,
+        43.57466583234915
+      ]
+    },
+    "record_timestamp": "2017-12-31T14:18:25+01:00"
+  },
+  {
+    "datasetid": "stations-de-metro",
+    "recordid": "4b0208cdb8ed5f7c01837ce4a1dcceeac6306d51",
+    "fields": {
+      "geo_shape": {
+        "type": "Point",
+        "coordinates": [
+          1.418422407597508,
+          43.5875316787023
+        ]
+      },
+      "nom": "FONTAINE-LESTANG",
+      "ligne": "A",
+      "etat": "Existant",
+      "geo_point_2d": [
+        43.5875316787023,
+        1.418422407597508
+      ]
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.418422407597508,
+        43.5875316787023
+      ]
+    },
+    "record_timestamp": "2017-12-31T14:18:25+01:00"
+  },
+  {
+    "datasetid": "stations-de-metro",
+    "recordid": "698716067a904b5dad0523f69f60f0d7342335d5",
+    "fields": {
+      "geo_shape": {
+        "type": "Point",
+        "coordinates": [
+          1.41232482739929,
+          43.580006676697955
+        ]
+      },
+      "nom": "BAGATELLE",
+      "ligne": "A",
+      "etat": "Existant",
+      "geo_point_2d": [
+        43.580006676697955,
+        1.41232482739929
+      ]
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.41232482739929,
+        43.580006676697955
+      ]
+    },
+    "record_timestamp": "2017-12-31T14:18:25+01:00"
+  },
+  {
+    "datasetid": "stations-de-metro",
+    "recordid": "40fd09cb8d08645aa378111dd4508394e956d68e",
+    "fields": {
+      "geo_shape": {
+        "type": "Point",
+        "coordinates": [
+          1.402000541787983,
+          43.57474939359304
+        ]
+      },
+      "nom": "MIRAIL-UNIVERSITE",
+      "ligne": "A",
+      "etat": "Existant",
+      "geo_point_2d": [
+        43.57474939359304,
+        1.402000541787983
+      ]
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.402000541787983,
+        43.57474939359304
+      ]
+    },
+    "record_timestamp": "2017-12-31T14:18:25+01:00"
+  },
+  {
+    "datasetid": "stations-de-metro",
+    "recordid": "d8cbd5666cadf7ce15c3e08cb18113fd37adb1f3",
+    "fields": {
+      "geo_shape": {
+        "type": "Point",
+        "coordinates": [
+          1.401720813477844,
+          43.57100039271847
+        ]
+      },
+      "nom": "REYNERIE",
+      "ligne": "A",
+      "etat": "Existant",
+      "geo_point_2d": [
+        43.57100039271847,
+        1.401720813477844
+      ]
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.401720813477844,
+        43.57100039271847
+      ]
+    },
+    "record_timestamp": "2017-12-31T14:18:25+01:00"
+  },
+  {
+    "datasetid": "stations-de-metro",
+    "recordid": "86f5e3c8245f8c61d4f4992e29ca25d55c349149",
+    "fields": {
+      "geo_shape": {
+        "type": "Point",
+        "coordinates": [
+          1.47008007427686,
+          43.62009576986087
+        ]
+      },
+      "nom": "ROSERAIE",
+      "ligne": "A",
+      "etat": "Existant",
+      "geo_point_2d": [
+        43.62009576986087,
+        1.47008007427686
+      ]
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.47008007427686,
+        43.62009576986087
+      ]
+    },
+    "record_timestamp": "2017-12-31T14:18:25+01:00"
+  },
+  {
+    "datasetid": "stations-de-metro",
+    "recordid": "7143bb5c2a3dfe13d7e9d32ef6ec34bc1ff3591d",
+    "fields": {
+      "geo_shape": {
+        "type": "Point",
+        "coordinates": [
+          1.476362985460513,
+          43.555765629062215
+        ]
+      },
+      "nom": "RAMONVILLE",
+      "ligne": "B",
+      "etat": "Existant",
+      "geo_point_2d": [
+        43.555765629062215,
+        1.476362985460513
+      ]
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.476362985460513,
+        43.555765629062215
+      ]
+    },
+    "record_timestamp": "2017-12-31T14:18:25+01:00"
+  },
+  {
+    "datasetid": "stations-de-metro",
+    "recordid": "db5f47aa01b22d3f06410caedb4d6244e0bdd7ee",
+    "fields": {
+      "geo_shape": {
+        "type": "Point",
+        "coordinates": [
+          1.423224607654997,
+          43.59644049148223
+        ]
+      },
+      "nom": "PATTE D'OIE",
+      "ligne": "A",
+      "etat": "Existant",
+      "geo_point_2d": [
+        43.59644049148223,
+        1.423224607654997
+      ]
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.423224607654997,
+        43.59644049148223
+      ]
+    },
+    "record_timestamp": "2017-12-31T14:18:25+01:00"
+  },
+  {
+    "datasetid": "stations-de-metro",
+    "recordid": "30544afe1b73876359b0dba4857d68d7a183734f",
+    "fields": {
+      "geo_shape": {
+        "type": "Point",
+        "coordinates": [
+          1.415185481987587,
+          43.58354960496083
+        ]
+      },
+      "nom": "MERMOZ",
+      "ligne": "A",
+      "etat": "Existant",
+      "geo_point_2d": [
+        43.58354960496083,
+        1.415185481987587
+      ]
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.415185481987587,
+        43.58354960496083
+      ]
+    },
+    "record_timestamp": "2017-12-31T14:18:25+01:00"
+  },
+  {
+    "datasetid": "stations-de-metro",
+    "recordid": "6d282f923831eb199ca82a5a3ddfa3396cf24794",
+    "fields": {
+      "geo_shape": {
+        "type": "Point",
+        "coordinates": [
+          1.418455815035056,
+          43.59391454778361
+        ]
+      },
+      "nom": "GARE SAINT-CYPRIEN ARENES",
+      "ligne": "C",
+      "etat": "Existant",
+      "geo_point_2d": [
+        43.59391454778361,
+        1.418455815035056
+      ]
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.418455815035056,
+        43.59391454778361
+      ]
+    },
+    "record_timestamp": "2017-12-31T14:18:25+01:00"
+  },
+  {
+    "datasetid": "stations-de-metro",
+    "recordid": "b5b87775c449666c0346998e5b0f7f39a789c119",
+    "fields": {
+      "geo_shape": {
+        "type": "Point",
+        "coordinates": [
+          1.442177089925823,
+          43.579956989984325
+        ]
+      },
+      "nom": "EMPALOT",
+      "ligne": "B",
+      "etat": "Existant",
+      "geo_point_2d": [
+        43.579956989984325,
+        1.442177089925823
+      ]
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.442177089925823,
+        43.579956989984325
+      ]
+    },
+    "record_timestamp": "2017-12-31T14:18:25+01:00"
+  },
+  {
+    "datasetid": "stations-de-metro",
+    "recordid": "c5e40d83d200b3c775cb594f38771809356e2db9",
+    "fields": {
+      "geo_shape": {
+        "type": "Point",
+        "coordinates": [
+          1.464519503590895,
+          43.56797741829365
+        ]
+      },
+      "nom": "FACULTE DE PHARMACIE",
+      "ligne": "B",
+      "etat": "Existant",
+      "geo_point_2d": [
+        43.56797741829365,
+        1.464519503590895
+      ]
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.464519503590895,
+        43.56797741829365
+      ]
+    },
+    "record_timestamp": "2017-12-31T14:18:25+01:00"
+  },
+  {
+    "datasetid": "stations-de-metro",
+    "recordid": "e6b4da093ba49bef5b399f6c67df6b21ebc45d65",
+    "fields": {
+      "geo_shape": {
+        "type": "Point",
+        "coordinates": [
+          1.449158555330807,
+          43.60587242507171
+        ]
+      },
+      "nom": "JEAN JAURES",
+      "ligne": "A",
+      "etat": "Existant",
+      "geo_point_2d": [
+        43.60587242507171,
+        1.449158555330807
+      ]
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.449158555330807,
+        43.60587242507171
+      ]
+    },
+    "record_timestamp": "2017-12-31T14:18:25+01:00"
+  },
+  {
+    "datasetid": "stations-de-metro",
+    "recordid": "5465b2a23e67ac0664419803be10c3d3af3c2fda",
+    "fields": {
+      "geo_shape": {
+        "type": "Point",
+        "coordinates": [
+          1.353059402299374,
+          43.602586417804844
+        ]
+      },
+      "nom": "RAMASSIERS",
+      "ligne": "C",
+      "etat": "Existant",
+      "geo_point_2d": [
+        43.602586417804844,
+        1.353059402299374
+      ]
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.353059402299374,
+        43.602586417804844
+      ]
+    },
+    "record_timestamp": "2017-12-31T14:18:25+01:00"
+  },
+  {
+    "datasetid": "stations-de-metro",
+    "recordid": "aa299903515083ef664cce053979bf47861a852a",
+    "fields": {
+      "geo_shape": {
+        "type": "Point",
+        "coordinates": [
+          1.401325045097952,
+          43.59563442361276
+        ]
+      },
+      "nom": "ZENITH",
+      "ligne": "C",
+      "etat": "Existant",
+      "geo_point_2d": [
+        43.59563442361276,
+        1.401325045097952
+      ]
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.401325045097952,
+        43.59563442361276
+      ]
+    },
+    "record_timestamp": "2017-12-31T14:18:25+01:00"
+  },
+  {
+    "datasetid": "stations-de-metro",
+    "recordid": "7dc95b3cfe4cef5149d70b7de6090a2abd1feb4b",
+    "fields": {
+      "geo_shape": {
+        "type": "Point",
+        "coordinates": [
+          1.418896273111486,
+          43.5924431019562
+        ]
+      },
+      "nom": "ARENES",
+      "ligne": "A",
+      "etat": "Existant",
+      "geo_point_2d": [
+        43.5924431019562,
+        1.418896273111486
+      ]
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.418896273111486,
+        43.5924431019562
+      ]
+    },
+    "record_timestamp": "2017-12-31T14:18:25+01:00"
+  },
+  {
+    "datasetid": "stations-de-metro",
+    "recordid": "cc68530ba77833c4b554ac446fda4b248ee8971d",
+    "fields": {
+      "geo_shape": {
+        "type": "Point",
+        "coordinates": [
+          1.476852007568361,
+          43.624539287706625
+        ]
+      },
+      "nom": "ARGOULETS",
+      "ligne": "A",
+      "etat": "Existant",
+      "geo_point_2d": [
+        43.624539287706625,
+        1.476852007568361
+      ]
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.476852007568361,
+        43.624539287706625
+      ]
+    },
+    "record_timestamp": "2017-12-31T14:18:25+01:00"
+  },
+  {
+    "datasetid": "stations-de-metro",
+    "recordid": "250d1957bed7fc0420480d363f7eca1078c9d7df",
+    "fields": {
+      "geo_shape": {
+        "type": "Point",
+        "coordinates": [
+          1.445347199497781,
+          43.60886442755838
+        ]
+      },
+      "nom": "JEANNE D'ARC",
+      "ligne": "B",
+      "etat": "Existant",
+      "geo_point_2d": [
+        43.60886442755838,
+        1.445347199497781
+      ]
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.445347199497781,
+        43.60886442755838
+      ]
+    },
+    "record_timestamp": "2017-12-31T14:18:25+01:00"
+  },
+  {
+    "datasetid": "stations-de-metro",
+    "recordid": "a31029bfaaed9e65d223cfda067801f3ac95745c",
+    "fields": {
+      "geo_shape": {
+        "type": "Point",
+        "coordinates": [
+          1.452182163042676,
+          43.60057221351738
+        ]
+      },
+      "nom": "FRANCOIS VERDIER",
+      "ligne": "B",
+      "etat": "Existant",
+      "geo_point_2d": [
+        43.60057221351738,
+        1.452182163042676
+      ]
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.452182163042676,
+        43.60057221351738
+      ]
+    },
+    "record_timestamp": "2017-12-31T14:18:25+01:00"
+  },
+  {
+    "datasetid": "stations-de-metro",
+    "recordid": "de0e255723f1aa22c7da1a7105c1cc8668370991",
+    "fields": {
+      "geo_shape": {
+        "type": "Point",
+        "coordinates": [
+          1.463168960961437,
+          43.561024338446074
+        ]
+      },
+      "nom": "UNIVERSITE PAUL SABATIER",
+      "ligne": "B",
+      "etat": "Existant",
+      "geo_point_2d": [
+        43.561024338446074,
+        1.463168960961437
+      ]
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.463168960961437,
+        43.561024338446074
+      ]
+    },
+    "record_timestamp": "2017-12-31T14:18:25+01:00"
+  },
+  {
+    "datasetid": "stations-de-metro",
+    "recordid": "ceab231c8d3bba6a23544e436d20a80667c35bd8",
+    "fields": {
+      "geo_shape": {
+        "type": "Point",
+        "coordinates": [
+          1.452537562893917,
+          43.640527125361935
+        ]
+      },
+      "nom": "BORDEROUGE",
+      "ligne": "B",
+      "etat": "Existant",
+      "geo_point_2d": [
+        43.640527125361935,
+        1.452537562893917
+      ]
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.452537562893917,
+        43.640527125361935
+      ]
+    },
+    "record_timestamp": "2017-12-31T14:18:25+01:00"
+  },
+  {
+    "datasetid": "stations-de-metro",
+    "recordid": "2ba559078d574d11a89b8ac147ee71b09aa3dad1",
+    "fields": {
+      "geo_shape": {
+        "type": "Point",
+        "coordinates": [
+          1.444290921468116,
+          43.638005383143614
+        ]
+      },
+      "nom": "TROIS COCUS",
+      "ligne": "B",
+      "etat": "Existant",
+      "geo_point_2d": [
+        43.638005383143614,
+        1.444290921468116
+      ]
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.444290921468116,
+        43.638005383143614
+      ]
+    },
+    "record_timestamp": "2017-12-31T14:18:25+01:00"
+  },
+  {
+    "datasetid": "stations-de-metro",
+    "recordid": "81e476425b320da7d7309e70327ab7ebd35aede0",
+    "fields": {
+      "geo_shape": {
+        "type": "Point",
+        "coordinates": [
+          1.435639532967056,
+          43.633776787414064
+        ]
+      },
+      "nom": "LA VACHE",
+      "ligne": "B",
+      "etat": "Existant",
+      "geo_point_2d": [
+        43.633776787414064,
+        1.435639532967056
+      ]
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.435639532967056,
+        43.633776787414064
+      ]
+    },
+    "record_timestamp": "2017-12-31T14:18:25+01:00"
+  },
+  {
+    "datasetid": "stations-de-metro",
+    "recordid": "e6b70e7cd2d4b5088d28e59e4beeab2628b34708",
+    "fields": {
+      "geo_shape": {
+        "type": "Point",
+        "coordinates": [
+          1.434284298129331,
+          43.61535810305015
+        ]
+      },
+      "nom": "CANAL DU MIDI",
+      "ligne": "B",
+      "etat": "Existant",
+      "geo_point_2d": [
+        43.61535810305015,
+        1.434284298129331
+      ]
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.434284298129331,
+        43.61535810305015
+      ]
+    },
+    "record_timestamp": "2017-12-31T14:18:25+01:00"
+  },
+  {
+    "datasetid": "stations-de-metro",
+    "recordid": "f61a0e6dfc6b175ccbc8280e1e97e14f1298d49f",
+    "fields": {
+      "geo_shape": {
+        "type": "Point",
+        "coordinates": [
+          1.455212717004547,
+          43.610830110176245
+        ]
+      },
+      "nom": "MARENGO-SNCF",
+      "ligne": "A",
+      "etat": "Existant",
+      "geo_point_2d": [
+        43.610830110176245,
+        1.455212717004547
+      ]
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.455212717004547,
+        43.610830110176245
+      ]
+    },
+    "record_timestamp": "2017-12-31T14:18:25+01:00"
+  },
+  {
+    "datasetid": "stations-de-metro",
+    "recordid": "455c8c3dbfc91949974e17da19f93fb73ef47741",
+    "fields": {
+      "geo_shape": {
+        "type": "Point",
+        "coordinates": [
+          1.445576358080686,
+          43.60449889967111
+        ]
+      },
+      "nom": "CAPITOLE",
+      "ligne": "A",
+      "etat": "Existant",
+      "geo_point_2d": [
+        43.60449889967111,
+        1.445576358080686
+      ]
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.445576358080686,
+        43.60449889967111
+      ]
+    },
+    "record_timestamp": "2017-12-31T14:18:25+01:00"
+  },
+  {
+    "datasetid": "stations-de-metro",
+    "recordid": "e51524c8953822384e161115480873ef4cc9801d",
+    "fields": {
+      "geo_shape": {
+        "type": "Point",
+        "coordinates": [
+          1.431418952156569,
+          43.597939686350315
+        ]
+      },
+      "nom": "ST CYPRIEN-REPUBLIQUE",
+      "ligne": "A",
+      "etat": "Existant",
+      "geo_point_2d": [
+        43.597939686350315,
+        1.431418952156569
+      ]
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.431418952156569,
+        43.597939686350315
+      ]
+    },
+    "record_timestamp": "2017-12-31T14:18:25+01:00"
+  },
+  {
+    "datasetid": "stations-de-metro",
+    "recordid": "67bc445b4aa6f2acd02a967ab9584818b80a0bdd",
+    "fields": {
+      "geo_shape": {
+        "type": "Point",
+        "coordinates": [
+          1.398184564233116,
+          43.566071104360866
+        ]
+      },
+      "nom": "BELLEFONTAINE",
+      "ligne": "A",
+      "etat": "Existant",
+      "geo_point_2d": [
+        43.566071104360866,
+        1.398184564233116
+      ]
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.398184564233116,
+        43.566071104360866
+      ]
+    },
+    "record_timestamp": "2017-12-31T14:18:25+01:00"
+  },
+  {
+    "datasetid": "stations-de-metro",
+    "recordid": "17742f4eaeb7b72c4f9e43afe93d022177e7e0e8",
+    "fields": {
+      "geo_shape": {
+        "type": "Point",
+        "coordinates": [
+          1.392279068599429,
+          43.56991342825253
+        ]
+      },
+      "nom": "BASSO-CAMBO",
+      "ligne": "A",
+      "etat": "Existant",
+      "geo_point_2d": [
+        43.56991342825253,
+        1.392279068599429
+      ]
+    },
+    "geometry": {
+      "type": "Point",
+      "coordinates": [
+        1.392279068599429,
+        43.56991342825253
+      ]
+    },
+    "record_timestamp": "2017-12-31T14:18:25+01:00"
+  }
+]
