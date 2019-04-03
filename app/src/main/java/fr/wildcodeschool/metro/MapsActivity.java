@@ -12,12 +12,17 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
-
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -116,14 +121,42 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        if (!(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
-            mMap.setMyLocationEnabled(true);
-        }
-
         mMap.getUiSettings().setZoomControlsEnabled(true);
         mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
         mMap.setMinZoomPreference(12.0f);
 
-        //TODO : Add markers of underground stations
+        String json = null;
+        try {
+            InputStream is = getAssets().open("Toulouse-metro.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        if (!(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
+            mMap.setMyLocationEnabled(true);
+        }
+
+        try {
+            JSONArray root = new JSONArray(json);
+
+            for (int i = 0; i < root.length(); i++) {
+                JSONObject stationInfo = root.getJSONObject(i);
+                JSONObject fields = stationInfo.getJSONObject("fields");
+                for (int j = 0; j < fields.length(); j++) {
+                    String stationName = fields.getString("nom");
+                    JSONArray geoPoint = fields.getJSONArray("geo_point_2d");
+                    double latStation = geoPoint.getDouble(0);
+                    double lngStation = geoPoint.getDouble(1);
+                    LatLng coordStation = new LatLng(latStation, lngStation);
+                    mMap.addMarker(new MarkerOptions().position(coordStation).title(stationName));
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }
