@@ -14,6 +14,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import org.json.JSONArray;
@@ -123,11 +124,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 JSONObject fields = stationInfo.getJSONObject("fields");
                 for (int j = 0; j < fields.length(); j++) {
                     String stationName = fields.getString("nom");
+                    char stationLine = fields.getString("ligne").charAt(0);
                     JSONArray geoPoint = fields.getJSONArray("geo_point_2d");
                     double latStation = geoPoint.getDouble(0);
                     double lngStation = geoPoint.getDouble(1);
                     LatLng coordStation = new LatLng(latStation, lngStation);
-                    mMap.addMarker(new MarkerOptions().position(coordStation).title(stationName));
+                    if (stationLine == 'B') {
+                        mMap.addMarker(new MarkerOptions()
+                                .position(coordStation)
+                                .title(stationName)
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
+                    }
+                    if (stationLine == 'A') {
+                        mMap.addMarker(new MarkerOptions()
+                                .position(coordStation)
+                                .title(stationName)
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+                    }
                 }
             }
         } catch (JSONException e) {
