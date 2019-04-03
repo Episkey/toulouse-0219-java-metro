@@ -16,6 +16,11 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -93,9 +98,40 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        //TODO : Add markers of underground stations
+
+        String json = null;
+        try {
+            InputStream is = getAssets().open("Toulouse-metro.json");
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+        try {
+            JSONArray root = new JSONArray(json);
+
+            for (int i = 0; i < root.length(); i++) {
+                JSONObject stationInfo = root.getJSONObject(i);
+                JSONObject fields = stationInfo.getJSONObject("fields");
+                for (int j = 0; j < fields.length(); j++) {
+                    String stationName = fields.getString("nom");
+                    JSONArray geoPoint = fields.getJSONArray("geo_point_2d");
+                    double latStation = geoPoint.getDouble(0);
+                    double lngStation = geoPoint.getDouble(1);
+                    LatLng coordStation = new LatLng(latStation, lngStation);
+                    mMap.addMarker(new MarkerOptions().position(coordStation).title(stationName));
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }
