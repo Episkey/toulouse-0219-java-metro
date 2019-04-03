@@ -1,5 +1,4 @@
 package fr.wildcodeschool.metro;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -89,20 +88,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(coordinate));
                 mMap.setMyLocationEnabled(true);
             }
-
             @Override
             public void onStatusChanged(String provider, int status, Bundle extras) {
-
             }
-
             @Override
             public void onProviderEnabled(String provider) {
-
             }
-
             @Override
             public void onProviderDisabled(String provider) {
-
             }
         };
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 2, locationListener);
