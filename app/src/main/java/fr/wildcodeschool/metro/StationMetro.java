@@ -5,6 +5,7 @@ public class StationMetro {
 
     public StationMetro(String name) {
         this.name = name;
+
     }
     public String getName() {
         return name;
