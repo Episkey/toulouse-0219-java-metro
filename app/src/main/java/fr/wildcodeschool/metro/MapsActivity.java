@@ -29,6 +29,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     private LocationManager mLocationManager = null;
     private static final int REQUEST_LOCATION = 1234;
+    private static final String MTROLIST_JSON = "Toulouse-metro.json";
 
     private void checkPermission() {
 
@@ -57,15 +58,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 } else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity.this);
-                    builder.setTitle("Important message");
-                    builder.setMessage("Oessit app must have access to your GPS. Please accept ! (or die !)");
-                    builder.setPositiveButton("Accept",new DialogInterface.OnClickListener() {
+                    builder.setTitle(R.string.title);
+                    builder.setMessage(R.string.textMessageConfirmation);
+                    builder.setPositiveButton(R.string.accept,new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             ActivityCompat.requestPermissions(MapsActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
                         }
                     });
-                    builder.setNegativeButton("Decline", new DialogInterface.OnClickListener() {
+                    builder.setNegativeButton(R.string.decline, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             finish();
@@ -127,7 +128,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         String json = null;
         try {
-            InputStream is = getAssets().open("Toulouse-metro.json");
+            InputStream is = getAssets().open(MTROLIST_JSON);
             int size = is.available();
             byte[] buffer = new byte[size];
             is.read(buffer);
