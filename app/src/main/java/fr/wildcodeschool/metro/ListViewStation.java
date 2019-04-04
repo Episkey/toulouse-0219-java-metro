@@ -8,16 +8,14 @@ import static fr.wildcodeschool.metro.Metro.extractStation;
 
 public class ListViewStation extends AppCompatActivity {
 
-   static List<StationMetro> stationMetro = new ArrayList<>();
-
+   static List<StationMetro> stationList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_iew_station);
-
-        stationMetro = extractStation(ListViewStation.this);
+        stationList = extractStation(ListViewStation.this);
         ListView listMetro = findViewById(R.id.lvStations);
-        AdapterStation adapter = new AdapterStation(ListViewStation.this, stationMetro);
+        AdapterStation adapter = new AdapterStation(ListViewStation.this, stationList);
         listMetro.setAdapter(adapter);
     }
 }

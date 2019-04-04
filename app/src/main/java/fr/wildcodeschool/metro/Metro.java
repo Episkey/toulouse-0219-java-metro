@@ -12,6 +12,7 @@ public class Metro {
     static ArrayList<StationMetro> stationMetro = new ArrayList<>();
 
     public static ArrayList<StationMetro> extractStation(Context context) {
+        stationMetro.clear();
         String json = null;
         try {
             InputStream is = context.getAssets().open("Toulouse-metro.json");
@@ -30,14 +31,9 @@ public class Metro {
             for (int i = 0; i < root.length(); i++) {
                 JSONObject stationInfo = root.getJSONObject(i);
                 JSONObject fields = stationInfo.getJSONObject("fields");
-                for (int j = 0; j < fields.length(); j++) {
-                    String stationName = fields.getString("nom");
-                    JSONArray geoPoint = fields.getJSONArray("geo_point_2d");
-                    double latStation = geoPoint.getDouble(0);
-                    double lngStation = geoPoint.getDouble(1);
-                    StationMetro stations = new StationMetro(stationName, latStation, lngStation);
-                    stationMetro.add(stations);
-                }
+                String stationName = fields.getString("nom");
+                StationMetro stations = new StationMetro(stationName);
+                stationMetro.add(stations);
             }
         } catch (
                 JSONException e) {

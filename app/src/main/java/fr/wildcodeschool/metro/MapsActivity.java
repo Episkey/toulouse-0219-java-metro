@@ -2,18 +2,25 @@ package fr.wildcodeschool.metro;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import org.json.JSONArray;
@@ -22,26 +29,44 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menulauncher, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_favorite:
+                Intent goToListView = new Intent(MapsActivity.this, ListViewStation.class);
+                startActivity(goToListView);
+                return true;
+            default:
+               return super.onOptionsItemSelected(item);
+        }
+    }
 
     private GoogleMap mMap;
-    LocationManager mLocationManager = null;
+    private LocationManager mLocationManager = null;
+    private static final int REQUEST_LOCATION = 1234;
+    private static final String MTROLIST_JSON = "Toulouse-metro.json";
 
     private void checkPermission() {
-        
+
         if (ContextCompat.checkSelfPermission(MapsActivity.this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
+
             if (ActivityCompat.shouldShowRequestPermissionRationale(MapsActivity.this,
                     Manifest.permission.ACCESS_FINE_LOCATION)) {
-                // l'autorisation a été refusée précédemment, on peut prévenir l'utilisateur ici
-                //TODO : mettre une fenêtre pour prévenir l'utilisateur?
+                ActivityCompat.requestPermissions(MapsActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+            } else {
+                ActivityCompat.requestPermissions(MapsActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
             }
-            else {
-                ActivityCompat.requestPermissions(MapsActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 100);
-            }
-        }
-        else {
+        } else {
             initLocation();
         }
     }
@@ -49,12 +74,30 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permission, int[] grantResults) {
         switch (requestCode) {
-            case 100: {
-                initLocation();
+            case REQUEST_LOCATION: {
+
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    initLocation();
+
                 } else {
-                    // l'autorisation a été refusée
-                    //TODO : mettre une fenetre ou forcer l'appli à se fermer ?
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity.this);
+                    builder.setTitle(R.string.title);
+                    builder.setMessage(R.string.textMessageConfirmation);
+                    builder.setPositiveButton(R.string.accept,new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            ActivityCompat.requestPermissions(MapsActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+                        }
+                    });
+                    builder.setNegativeButton(R.string.decline, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                            System.exit(0);
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
                 }
                 return;
             }
@@ -67,13 +110,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LocationListener locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
-                double lat =  location.getLatitude();
+                double lat = location.getLatitude();
                 double lng = location.getLongitude();
                 LatLng coordinate = new LatLng(lat, lng);
 
-                mMap.addMarker(new MarkerOptions().position(coordinate).title("Ma position"));
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(coordinate));
-                mMap.setMinZoomPreference(12.0f);
+                mMap.setMyLocationEnabled(true);
             }
             @Override
             public void onStatusChanged(String provider, int status, Bundle extras) {
@@ -85,13 +127,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onProviderDisabled(String provider) {
             }
         };
-        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,0, 0, locationListener);
+        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 2, locationListener);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
         checkPermission();
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -102,10 +145,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+        mMap.setMinZoomPreference(12.0f);
 
         String json = null;
         try {
-            InputStream is = getAssets().open("Toulouse-metro.json");
+            InputStream is = getAssets().open(MTROLIST_JSON);
             int size = is.available();
             byte[] buffer = new byte[size];
             is.read(buffer);
@@ -113,6 +159,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             json = new String(buffer, "UTF-8");
         } catch (IOException ex) {
             ex.printStackTrace();
+        }
+        if (!(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
+            mMap.setMyLocationEnabled(true);
         }
 
         try {
@@ -123,11 +172,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 JSONObject fields = stationInfo.getJSONObject("fields");
                 for (int j = 0; j < fields.length(); j++) {
                     String stationName = fields.getString("nom");
+                    char stationLine = fields.getString("ligne").charAt(0);
                     JSONArray geoPoint = fields.getJSONArray("geo_point_2d");
                     double latStation = geoPoint.getDouble(0);
                     double lngStation = geoPoint.getDouble(1);
                     LatLng coordStation = new LatLng(latStation, lngStation);
-                    mMap.addMarker(new MarkerOptions().position(coordStation).title(stationName));
+                    if (stationLine == 'B') {
+                        mMap.addMarker(new MarkerOptions()
+                                .position(coordStation)
+                                .title(stationName)
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
+                    }
+                    if (stationLine == 'A') {
+                        mMap.addMarker(new MarkerOptions()
+                                .position(coordStation)
+                                .title(stationName)
+                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+                    }
                 }
             }
         } catch (JSONException e) {

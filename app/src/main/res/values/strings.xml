@@ -1,5 +1,12 @@
 <resources>
     <string name="app_name">Metro</string>
     <string name="title_activity_maps">Map</string>
+    <string name="title">Important message</string>
+    <string name="textMessageConfirmation">Oessit application must have access to your GPS. Please accept or uninstall this application.</string>
+    <string name="accept">Accept</string>
+    <string name="decline">Decline</string>
     <string name="item">item</string>
+    <string name="favori">favori</string>
+    <string name="favorites">Item</string>
+    <string name="buttonFavorite">buttonFavorite</string>
 </resources>

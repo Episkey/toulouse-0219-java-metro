@@ -9,8 +9,8 @@ import java.util.List;
 
 public class AdapterStation extends ArrayAdapter<StationMetro> {
 
-    public AdapterStation(Context context, List<StationMetro> menu) {
-        super(context, 0, menu);
+    public AdapterStation(Context context, List<StationMetro> stationMetro) {
+        super(context, 0, stationMetro);
     }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
