@@ -1,9 +1,9 @@
 package fr.wildcodeschool.metro;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -13,7 +13,10 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
-
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -21,20 +24,37 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.io.InputStream;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    private static final int REQUEST_LOCATION = 1234;
-    private static final String MTROLIST_JSON = "Toulouse-metro.json";
     private GoogleMap mMap;
     private LocationManager mLocationManager = null;
+    private static final int REQUEST_LOCATION = 1234;
+    private static final String MTROLIST_JSON = "Toulouse-metro.json";
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menulauncher, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_favorite:
+                Intent goToListView = new Intent(MapsActivity.this, ListViewStation.class);
+                startActivity(goToListView);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     private void checkPermission() {
 
@@ -65,7 +85,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity.this);
                     builder.setTitle(R.string.title);
                     builder.setMessage(R.string.textMessageConfirmation);
-                    builder.setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
+                    builder.setPositiveButton(R.string.accept,new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             ActivityCompat.requestPermissions(MapsActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
@@ -167,7 +187,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             .position(coordStation)
                             .title(stationName)
                             .snippet("Ligne : " + stationLine)
-                            .flat(false)
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
                 }
                 if (stationLine.charAt(0) == 'A') {
@@ -177,7 +196,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             .snippet("Ligne : " + stationLine)
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
                 }
-
             }
         } catch (JSONException e) {
             e.printStackTrace();
