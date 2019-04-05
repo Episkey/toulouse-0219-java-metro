@@ -1,18 +1,19 @@
 package fr.wildcodeschool.metro;
+
 import android.content.Context;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
 public class Metro {
 
-    static ArrayList<StationMetro> stationMetro = new ArrayList<>();
-
     public static ArrayList<StationMetro> extractStation(Context context) {
-        stationMetro.clear();
+        ArrayList<StationMetro> stationMetro = new ArrayList<>();
         String json = null;
         try {
             InputStream is = context.getAssets().open("Toulouse-metro.json");
