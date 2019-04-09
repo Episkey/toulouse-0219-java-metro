@@ -30,6 +30,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private LocationManager mLocationManager = null;
     private static final int REQUEST_LOCATION = 1234;
     private static final String MTROLIST_JSON = "Toulouse-metro.json";
+    private final static String API_KEY = "e083e127-3c7c-4d1b-b5c8-a5838936e4cf";
+    String url = "https://api.tisseo.fr/v1/stop_areas.json?<paramètres>&key=" + API_KEY;
 
     private void checkPermission() {
 
