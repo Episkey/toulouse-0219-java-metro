@@ -27,7 +27,6 @@ public class AdapterStation extends ArrayAdapter<StationMetro> {
         }
         TextView textStation = convertView.findViewById(R.id.tvItemJson);
         textStation.setText(item.getName());
-
         TextView textDistance = convertView.findViewById(R.id.tvDistance);
         int distance = round(locUser.distanceTo(item.getLocation()));
         String distanceInMeters = String.valueOf(distance);
