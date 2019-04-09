@@ -5,9 +5,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
-
 import java.util.List;
-
 import static fr.wildcodeschool.metro.Metro.extractStation;
 
 public class ListViewStation extends AppCompatActivity {

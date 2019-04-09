@@ -7,9 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-
 import java.util.List;
-
 import static java.lang.Math.round;
 
 public class AdapterStation extends ArrayAdapter<StationMetro> {
@@ -31,7 +29,6 @@ public class AdapterStation extends ArrayAdapter<StationMetro> {
         textStation.setText(item.getName());
 
         TextView textDistance = convertView.findViewById(R.id.tvDistance);
-
         int distance = round(locUser.distanceTo(item.getLocation()));
         String distanceInMeters = String.valueOf(distance);
         textDistance.setText(distanceInMeters + " meters");

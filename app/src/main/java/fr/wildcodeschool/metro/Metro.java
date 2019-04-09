@@ -1,11 +1,9 @@
 package fr.wildcodeschool.metro;
 
 import android.content.Context;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -46,6 +44,3 @@ public class Metro {
         return stationMetro;
     }
 }
-
-
-
