@@ -1,4 +1,5 @@
 package fr.wildcodeschool.metro;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -10,7 +11,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -157,6 +157,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
         mMap.setMinZoomPreference(12.0f);
 
+        mMap.setInfoWindowAdapter(new CustomInfoMarkerAdapter(MapsActivity.this));
         String json = null;
         try {
             InputStream is = getAssets().open(MTROLIST_JSON);
@@ -174,30 +175,33 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         try {
             JSONArray root = new JSONArray(json);
-
             for (int i = 0; i < root.length(); i++) {
                 JSONObject stationInfo = root.getJSONObject(i);
                 JSONObject fields = stationInfo.getJSONObject("fields");
-
                 String stationName = fields.getString("nom");
                 String stationLine = fields.getString("ligne");
                 JSONArray geoPoint = fields.getJSONArray("geo_point_2d");
                 double latStation = geoPoint.getDouble(0);
                 double lngStation = geoPoint.getDouble(1);
                 LatLng coordStation = new LatLng(latStation, lngStation);
+                StationMetro station = new StationMetro(stationName, latStation, lngStation);
+                int distance = StationMetro.getDistance();
+
+
                 if (stationLine.charAt(0) == 'B') {
                     mMap.addMarker(new MarkerOptions()
                             .position(coordStation)
                             .title(stationName)
-                            .snippet(getString(R.string.ligneB) + stationLine)
+                            .snippet("Ligne : " + stationLine + "\n" +
+                                    "Distance : " + distance + "\n")
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
                 }
-
                 if (stationLine.charAt(0) == 'A') {
                     mMap.addMarker(new MarkerOptions()
                             .position(coordStation)
                             .title(stationName)
-                            .snippet(getString(R.string.ligneA) + stationLine)
+                            .snippet("Ligne : " + stationLine + "\n" +
+                                    "Distance : " + distance + "\n")
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
                 }
             }

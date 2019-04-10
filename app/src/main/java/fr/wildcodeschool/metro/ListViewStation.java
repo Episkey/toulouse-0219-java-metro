@@ -23,6 +23,5 @@ public class ListViewStation extends AppCompatActivity {
         ListView listMetro = findViewById(R.id.lvStations);
         AdapterStation adapter = new AdapterStation(ListViewStation.this, stationList, locationUser);
         listMetro.setAdapter(adapter);
-
     }
 }
