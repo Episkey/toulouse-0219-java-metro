@@ -9,4 +9,5 @@
     <string name="favori">favori</string>
     <string name="favorites">Item</string>
     <string name="buttonFavorite">buttonFavorite</string>
+    <string name="meters">%d meters</string>
 </resources>

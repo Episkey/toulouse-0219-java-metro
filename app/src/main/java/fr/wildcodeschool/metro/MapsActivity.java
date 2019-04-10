@@ -17,7 +17,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -25,11 +24,9 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -39,6 +36,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private static final String MTROLIST_JSON = "Toulouse-metro.json";
     private GoogleMap mMap;
     private LocationManager mLocationManager = null;
+    private Location locationUser = new Location("");
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -52,6 +50,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         switch (item.getItemId()) {
             case R.id.action_favorite:
                 Intent goToListView = new Intent(MapsActivity.this, ListViewStation.class);
+                goToListView.putExtra("locationUser", locationUser);
                 startActivity(goToListView);
                 return true;
             default:
@@ -118,7 +117,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 double lat = location.getLatitude();
                 double lng = location.getLongitude();
                 LatLng coordinate = new LatLng(lat, lng);
-
+                locationUser.setLatitude(lat);
+                locationUser.setLongitude(lng);
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(coordinate));
                 mMap.setMyLocationEnabled(true);
             }
