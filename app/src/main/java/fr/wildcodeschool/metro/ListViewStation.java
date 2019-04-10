@@ -20,21 +20,19 @@ public class ListViewStation extends AppCompatActivity {
         Location locationUser = intent.getParcelableExtra("locationUser");
         setContentView(R.layout.list_view_station);
         List<StationMetro> stationList = extractStation(ListViewStation.this);
-
         for (StationMetro station : stationList) {
             int distance = round(locationUser.distanceTo(station.getLocation()));
             station.setDistance(distance);
         }
-
+        
         Collections.sort(stationList, new Comparator<StationMetro>() {
             public int compare(StationMetro o1, StationMetro o2) {
                 return o2.getDistance() < o1.getDistance() ? 1 : -1;
             }
         });
-
+        
         ListView listMetro = findViewById(R.id.lvStations);
         AdapterStation adapter = new AdapterStation(ListViewStation.this, stationList, locationUser);
         listMetro.setAdapter(adapter);
-
     }
 }
