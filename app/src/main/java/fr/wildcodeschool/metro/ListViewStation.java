@@ -5,8 +5,11 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
+
+import java.util.Collections;
 import java.util.List;
 import static fr.wildcodeschool.metro.Metro.extractStation;
+import static java.util.Collections.sort;
 
 public class ListViewStation extends AppCompatActivity {
 
@@ -20,5 +23,6 @@ public class ListViewStation extends AppCompatActivity {
         ListView listMetro = findViewById(R.id.lvStations);
         AdapterStation adapter = new AdapterStation(ListViewStation.this, stationList, locationUser);
         listMetro.setAdapter(adapter);
+
     }
 }

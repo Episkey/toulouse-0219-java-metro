@@ -35,7 +35,7 @@ public class Metro {
                 double latitude = (double) geoPoint.get(0);
                 double longitude = (double) geoPoint.get(1);
                 StationMetro station = new StationMetro(stationName, latitude, longitude);
-                stationMetro.add(stations);
+                stationMetro.add(station);
             }
         } catch (
                 JSONException e) {
