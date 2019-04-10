@@ -34,7 +34,7 @@ public class Metro {
                 JSONArray geo_point_2d = (JSONArray) fields.get("geo_point_2d");
                 double latitude = (double) geo_point_2d.get(0);
                 double longitude = (double) geo_point_2d.get(1);
-                StationMetro stations = new StationMetro(stationName, latitude, longitude);
+                StationMetro station = new StationMetro(stationName, latitude, longitude);
                 stationMetro.add(stations);
             }
         } catch (
