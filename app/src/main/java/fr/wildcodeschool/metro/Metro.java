@@ -42,7 +42,6 @@ public class Metro {
                 JSONException e) {
             e.printStackTrace();
         }
-
         return stationMetro;
     }
 }
