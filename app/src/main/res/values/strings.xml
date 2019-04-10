@@ -11,4 +11,5 @@
     <string name="buttonFavorite">buttonFavorite</string>
     <string name="ligneB">Ligne :</string>
     <string name="ligneA">Ligne :</string>
+    <string name="meters">%d meters</string>
 </resources>

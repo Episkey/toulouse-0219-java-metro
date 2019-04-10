@@ -1,11 +1,9 @@
 package fr.wildcodeschool.metro;
 
 import android.content.Context;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -33,8 +31,11 @@ public class Metro {
                 JSONObject stationInfo = root.getJSONObject(i);
                 JSONObject fields = stationInfo.getJSONObject("fields");
                 String stationName = fields.getString("nom");
-                StationMetro stations = new StationMetro(stationName);
-                stationMetro.add(stations);
+                JSONArray geoPoint = (JSONArray) fields.get("geo_point_2d");
+                double latitude = (double) geoPoint.get(0);
+                double longitude = (double) geoPoint.get(1);
+                StationMetro station = new StationMetro(stationName, latitude, longitude);
+                stationMetro.add(station);
             }
         } catch (
                 JSONException e) {
@@ -43,6 +44,3 @@ public class Metro {
         return stationMetro;
     }
 }
-
-
-

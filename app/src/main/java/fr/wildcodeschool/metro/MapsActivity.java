@@ -30,12 +30,13 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
-    private GoogleMap mMap;
-    private LocationManager mLocationManager = null;
     private static final int REQUEST_LOCATION = 1234;
     private static final String MTROLIST_JSON = "Toulouse-metro.json";
+    private GoogleMap mMap;
+    private LocationManager mLocationManager = null;
+    private Location locationUser = new Location("");
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -49,6 +50,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         switch (item.getItemId()) {
             case R.id.action_favorite:
                 Intent goToListView = new Intent(MapsActivity.this, ListViewStation.class);
+                goToListView.putExtra("locationUser", locationUser);
                 startActivity(goToListView);
                 return true;
             default:
@@ -85,7 +87,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity.this);
                     builder.setTitle(R.string.title);
                     builder.setMessage(R.string.textMessageConfirmation);
-                    builder.setPositiveButton(R.string.accept,new DialogInterface.OnClickListener() {
+                    builder.setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             ActivityCompat.requestPermissions(MapsActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
@@ -115,7 +117,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 double lat = location.getLatitude();
                 double lng = location.getLongitude();
                 LatLng coordinate = new LatLng(lat, lng);
-
+                locationUser.setLatitude(lat);
+                locationUser.setLongitude(lng);
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(coordinate));
                 mMap.setMyLocationEnabled(true);
             }
@@ -197,7 +200,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             .snippet(getString(R.string.ligneA) + stationLine)
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
                 }
-
             }
         } catch (JSONException e) {
             e.printStackTrace();
