@@ -186,16 +186,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     mMap.addMarker(new MarkerOptions()
                             .position(coordStation)
                             .title(stationName)
-                            .snippet("Ligne : " + stationLine)
+                            .snippet(getString(R.string.ligneB) + stationLine)
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
                 }
+
                 if (stationLine.charAt(0) == 'A') {
                     mMap.addMarker(new MarkerOptions()
                             .position(coordStation)
                             .title(stationName)
-                            .snippet("Ligne : " + stationLine)
+                            .snippet(getString(R.string.ligneA) + stationLine)
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
                 }
+
             }
         } catch (JSONException e) {
             e.printStackTrace();
