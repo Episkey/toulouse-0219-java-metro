@@ -12,4 +12,5 @@
     <string name="ligneB">Ligne :</string>
     <string name="ligneA">Ligne :</string>
     <string name="meters">%d meters</string>
+    <string name="snippet_text">Ligne : %s \nDistance : %d meters</string>
 </resources>

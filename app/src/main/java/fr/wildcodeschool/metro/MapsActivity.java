@@ -17,6 +17,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -24,11 +26,13 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
+import static java.lang.Math.round;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -36,7 +40,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private static final String MTROLIST_JSON = "Toulouse-metro.json";
     private GoogleMap mMap;
     private LocationManager mLocationManager = null;
-    private Location locationUser = new Location("");
+    private Location locationUser = null;
+    private boolean mHasMarkerCreated = false;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -59,11 +64,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private void checkPermission() {
-
         if (ContextCompat.checkSelfPermission(MapsActivity.this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
-
             if (ActivityCompat.shouldShowRequestPermissionRationale(MapsActivity.this,
                     Manifest.permission.ACCESS_FINE_LOCATION)) {
                 ActivityCompat.requestPermissions(MapsActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
@@ -79,10 +82,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onRequestPermissionsResult(int requestCode, String[] permission, int[] grantResults) {
         switch (requestCode) {
             case REQUEST_LOCATION: {
-
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     initLocation();
-
                 } else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity.this);
                     builder.setTitle(R.string.title);
@@ -117,10 +118,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 double lat = location.getLatitude();
                 double lng = location.getLongitude();
                 LatLng coordinate = new LatLng(lat, lng);
+                locationUser = new Location("");
                 locationUser.setLatitude(lat);
                 locationUser.setLongitude(lng);
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(coordinate));
-                mMap.setMyLocationEnabled(true);
+                if (mMap != null && !mHasMarkerCreated) {
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(coordinate));
+                    mMap.setMyLocationEnabled(true);
+                    createMarkers();
+                }
             }
 
             @Override
@@ -135,16 +140,25 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void onProviderDisabled(String provider) {
             }
         };
+
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 2, locationListener);
+        FusedLocationProviderClient fusedLocationClient =  LocationServices.getFusedLocationProviderClient(this);
+        fusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+
+            @Override
+            public void onSuccess(Location location) {
+                if (location != null && mHasMarkerCreated) {
+                    createMarkers();
+                }
+            }
+        });
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-
         checkPermission();
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -156,7 +170,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap.getUiSettings().setZoomControlsEnabled(true);
         mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
         mMap.setMinZoomPreference(12.0f);
+        if (locationUser != null && !mHasMarkerCreated) {
+            createMarkers();
+        }
+    }
 
+    private void createMarkers() {
+        mHasMarkerCreated = true;
         mMap.setInfoWindowAdapter(new CustomInfoMarkerAdapter(MapsActivity.this));
         String json = null;
         try {
@@ -172,7 +192,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         if (!(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
             mMap.setMyLocationEnabled(true);
         }
-
         try {
             JSONArray root = new JSONArray(json);
             for (int i = 0; i < root.length(); i++) {
@@ -182,26 +201,22 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 String stationLine = fields.getString("ligne");
                 JSONArray geoPoint = fields.getJSONArray("geo_point_2d");
                 double latStation = geoPoint.getDouble(0);
-                double lngStation = geoPoint.getDouble(1);
-                LatLng coordStation = new LatLng(latStation, lngStation);
-                StationMetro station = new StationMetro(stationName, latStation, lngStation);
-                int distance = StationMetro.getDistance();
-
-
+                double longStation = geoPoint.getDouble(1);
+                LatLng coordStation = new LatLng(latStation, longStation);
+                StationMetro station = new StationMetro(stationName, latStation, longStation);
+                int distance = round(locationUser.distanceTo(station.getLocation()));
                 if (stationLine.charAt(0) == 'B') {
                     mMap.addMarker(new MarkerOptions()
                             .position(coordStation)
                             .title(stationName)
-                            .snippet("Ligne : " + stationLine + "\n" +
-                                    "Distance : " + distance + "\n")
+                            .snippet(String.format(getString(R.string.snippet_text), stationLine, distance))
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
                 }
                 if (stationLine.charAt(0) == 'A') {
                     mMap.addMarker(new MarkerOptions()
                             .position(coordStation)
                             .title(stationName)
-                            .snippet("Ligne : " + stationLine + "\n" +
-                                    "Distance : " + distance + "\n")
+                            .snippet(String.format(getString(R.string.snippet_text), stationLine, distance))
                             .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
                 }
             }

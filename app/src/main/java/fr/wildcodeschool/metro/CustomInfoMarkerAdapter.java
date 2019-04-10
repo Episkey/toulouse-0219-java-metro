@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
-
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.Marker;
 
@@ -19,13 +18,11 @@ public class CustomInfoMarkerAdapter implements GoogleMap.InfoWindowAdapter {
     }
 
     private void rendowWindowText (Marker marker, View view) {
-
         String title = marker.getTitle();
         TextView tvTitle = view.findViewById(R.id.title);
         if(!title.equals("")) {
             tvTitle.setText(title);
         }
-
         String snippet = marker.getSnippet();
         TextView tvSnippet = view.findViewById(R.id.snippet);
         if(!snippet.equals("")) {
