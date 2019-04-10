@@ -31,9 +31,9 @@ public class Metro {
                 JSONObject stationInfo = root.getJSONObject(i);
                 JSONObject fields = stationInfo.getJSONObject("fields");
                 String stationName = fields.getString("nom");
-                JSONArray geo_point_2d = (JSONArray) fields.get("geo_point_2d");
-                double latitude = (double) geo_point_2d.get(0);
-                double longitude = (double) geo_point_2d.get(1);
+                JSONArray geoPoint = (JSONArray) fields.get("geo_point_2d");
+                double latitude = (double) geoPoint.get(0);
+                double longitude = (double) geoPoint.get(1);
                 StationMetro station = new StationMetro(stationName, latitude, longitude);
                 stationMetro.add(stations);
             }
