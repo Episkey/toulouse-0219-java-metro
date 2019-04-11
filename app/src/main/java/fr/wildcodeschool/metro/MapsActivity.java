@@ -14,9 +14,18 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -37,6 +46,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private GoogleMap mMap;
     private LocationManager mLocationManager = null;
     private Location locationUser = new Location("");
+    private final static String API_KEY = "&key=e083e127-3c7c-4d1b-b5c8-a5838936e4cf";
+    private final static String LIGNE_A = "11821949021891694";
+    private final static String LIGNE_B = "11821949021892004";
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -148,6 +160,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+
     }
 
     @Override
@@ -157,50 +171,92 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
         mMap.setMinZoomPreference(12.0f);
 
-        String json = null;
-        try {
-            InputStream is = getAssets().open(MTROLIST_JSON);
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            json = new String(buffer, "UTF-8");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        if (!(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
-            mMap.setMyLocationEnabled(true);
-        }
+        //Station Metro A
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
 
-        try {
-            JSONArray root = new JSONArray(json);
+        String url = "https://api.tisseo.fr/v1/stop_areas.json?displayCoordXY=1&lineId=" + LIGNE_A + API_KEY;
 
-            for (int i = 0; i < root.length(); i++) {
-                JSONObject stationInfo = root.getJSONObject(i);
-                JSONObject fields = stationInfo.getJSONObject("fields");
-                for (int j = 0; j < fields.length(); j++) {
-                    String stationName = fields.getString("nom");
-                    char stationLine = fields.getString("ligne").charAt(0);
-                    JSONArray geoPoint = fields.getJSONArray("geo_point_2d");
-                    double latStation = geoPoint.getDouble(0);
-                    double lngStation = geoPoint.getDouble(1);
-                    LatLng coordStation = new LatLng(latStation, lngStation);
-                    if (stationLine == 'B') {
-                        mMap.addMarker(new MarkerOptions()
-                                .position(coordStation)
-                                .title(stationName)
-                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
+        final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONObject stopAreas = response.getJSONObject("stopAreas");
+                            JSONArray stopArea = stopAreas.getJSONArray("stopArea");
+                            for (int i = 0; i < stopArea.length(); i++) {
+                                JSONObject numStation = (JSONObject)stopArea.get(i);
+                                String cityName = numStation.getString("cityName");
+                                String id = numStation.getString("id");
+                                String name = numStation.getString("name");
+                                double x = numStation.getDouble("x");
+                                double y = numStation.getDouble("y");
+
+                                LatLng coordStation = new LatLng(y, x);
+
+                                mMap.addMarker(new MarkerOptions()
+                                        .position(coordStation)
+                                        .title(name)
+                                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
-                    if (stationLine == 'A') {
-                        mMap.addMarker(new MarkerOptions()
-                                .position(coordStation)
-                                .title(stationName)
-                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+                },
+                new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("VOLLEY_ERROR", "onErrorResponse: " + error.getMessage());
                     }
                 }
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        );
+        requestQueue.add(jsonObjectRequest);
+
+        //Station Metro B
+        RequestQueue requestQueueLigneB = Volley.newRequestQueue(this);
+
+        String urlLigneB = "https://api.tisseo.fr/v1/stop_areas.json?displayCoordXY=1&lineId="  + LIGNE_B + API_KEY;
+
+        final JsonObjectRequest jsonObjectRequestLigneB = new JsonObjectRequest(
+                Request.Method.GET, urlLigneB, null,
+                new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONObject stopAreas = response.getJSONObject("stopAreas");
+                            JSONArray stopArea = stopAreas.getJSONArray("stopArea");
+                            for (int i = 0; i < stopArea.length(); i++) {
+                                JSONObject numStation = (JSONObject)stopArea.get(i);
+                                String cityName = numStation.getString("cityName");
+                                String id = numStation.getString("id");
+                                String name = numStation.getString("name");
+                                double x = numStation.getDouble("x");
+                                double y = numStation.getDouble("y");
+
+                                LatLng coordStation = new LatLng(y, x);
+
+                                mMap.addMarker(new MarkerOptions()
+                                        .position(coordStation)
+                                        .title(name)
+                                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("VOLLEY_ERROR", "onErrorResponse: " + error.getMessage());
+                    }
+                }
+        );
+
+        requestQueueLigneB.add(jsonObjectRequestLigneB);
     }
 }
