@@ -10,4 +10,10 @@
     <string name="favorites">Item</string>
     <string name="buttonFavorite">buttonFavorite</string>
     <string name="meters">%d meters</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="register">Not register ?</string>
+    <string name="success">SignInWithEmail:success</string>
+    <string name="failure">SignInWithEmail:failure</string>
+    <string name="failure_toast">Authentication failed.</string>
 </resources>
