@@ -27,8 +27,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
 
-        Button btLogin = findViewById(R.id.btLogin);
+        Button btNotRegister = findViewById(R.id.btNotRegister);
+        btNotRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goToRegisterActivity = new Intent(MainActivity.this, RegisterActivity.class);
+                startActivity(goToRegisterActivity);
+            }
+        });
 
+        Button btLogin = findViewById(R.id.btLogin);
         btLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
