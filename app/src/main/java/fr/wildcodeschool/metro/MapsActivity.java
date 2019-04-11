@@ -14,16 +14,10 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
+
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -33,21 +27,17 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.android.gms.tasks.OnSuccessListener;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import java.io.InputStream;
+
+import java.util.List;
+
+import static fr.wildcodeschool.metro.Helper.LIGNE_A;
+import static fr.wildcodeschool.metro.Helper.LIGNE_B;
 import static java.lang.Math.round;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private static final int REQUEST_LOCATION = 1234;
-    private static final String MTROLIST_JSON = "Toulouse-metro.json";
-    private final static String API_KEY = "&key=e083e127-3c7c-4d1b-b5c8-a5838936e4cf";
-    private final static String LIGNE_A = "11821949021891694";
-    private final static String LIGNE_B = "11821949021892004";
     private GoogleMap mMap;
     private LocationManager mLocationManager = null;
     private Location mLocationUser = null;
@@ -188,99 +178,34 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private void createMarkers() {
         mHasMarkerCreated = true;
         mMap.setInfoWindowAdapter(new CustomInfoMarkerAdapter(MapsActivity.this));
-        //Station Metro A
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-
-        String url = "https://api.tisseo.fr/v1/stop_areas.json?displayCoordXY=1&lineId=" + LIGNE_A + API_KEY;
-
-        final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-                Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
-
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        if (!(ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
-                            mMap.setMyLocationEnabled(true);
-                        }
-                        try {
-                            JSONObject stopAreas = response.getJSONObject("stopAreas");
-                            JSONArray stopArea = stopAreas.getJSONArray("stopArea");
-                            for (int i = 0; i < stopArea.length(); i++) {
-                                JSONObject numStation = (JSONObject) stopArea.get(i);
-                                String cityName = numStation.getString("cityName");
-                                String id = numStation.getString("id");
-                                String name = numStation.getString("name");
-                                double x = numStation.getDouble("x");
-                                double y = numStation.getDouble("y");
-                                LatLng coordStation = new LatLng(y, x);
-                                StationMetro station = new StationMetro(name, y, x);
-                                int distance = round(mLocationUser.distanceTo(station.getLocation()));
-                                mMap.addMarker(new MarkerOptions()
-                                        .position(coordStation)
-                                        .title(name)
-                                        .snippet(String.format(getString(R.string.snippet_text), getString(R.string.a), distance))
-                                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d("VOLLEY_ERROR", "onErrorResponse: " + error.getMessage());
-                    }
+        Helper.extractStation(MapsActivity.this, mLocationUser, LIGNE_A, new Helper.StationListener() {
+            @Override
+            public void onStationsLoaded(List<StationMetro> stations) {
+                for (StationMetro station : stations) {
+                    int distance = round(mLocationUser.distanceTo(station.getLocation()));
+                    LatLng coordStation = new LatLng(station.getLatitude(), station.getLongitude());
+                    mMap.addMarker(new MarkerOptions()
+                            .position(coordStation)
+                            .title(station.getName())
+                            .snippet(String.format(getString(R.string.snippet_text), getString(R.string.a), distance))
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
                 }
-        );
-        requestQueue.add(jsonObjectRequest);
+            }
+        });
 
-        //Station Metro B
-        RequestQueue requestQueueLigneB = Volley.newRequestQueue(this);
-
-        String urlLigneB = "https://api.tisseo.fr/v1/stop_areas.json?displayCoordXY=1&lineId=" + LIGNE_B + API_KEY;
-
-        final JsonObjectRequest jsonObjectRequestLigneB = new JsonObjectRequest(
-                Request.Method.GET, urlLigneB, null,
-                new Response.Listener<JSONObject>() {
-
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        if (!(ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
-                            mMap.setMyLocationEnabled(true);
-                        }
-                        try {
-                            JSONObject stopAreas = response.getJSONObject("stopAreas");
-                            JSONArray stopArea = stopAreas.getJSONArray("stopArea");
-                            for (int i = 0; i < stopArea.length(); i++) {
-                                JSONObject numStation = (JSONObject) stopArea.get(i);
-                                String cityName = numStation.getString("cityName");
-                                String id = numStation.getString("id");
-                                String name = numStation.getString("name");
-                                double x = numStation.getDouble("x");
-                                double y = numStation.getDouble("y");
-                                LatLng coordStation = new LatLng(y, x);
-                                StationMetro station = new StationMetro(name, y, x);
-                                int distance = round(mLocationUser.distanceTo(station.getLocation()));
-                                mMap.addMarker(new MarkerOptions()
-                                        .position(coordStation)
-                                        .title(name)
-                                        .snippet(String.format(getString(R.string.snippet_text), getString(R.string.b), distance))
-                                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d("VOLLEY_ERROR", "onErrorResponse: " + error.getMessage());
-                    }
+        Helper.extractStation(MapsActivity.this, mLocationUser, LIGNE_B, new Helper.StationListener() {
+            @Override
+            public void onStationsLoaded(List<StationMetro> stations) {
+                for (StationMetro station : stations) {
+                    int distance = round(mLocationUser.distanceTo(station.getLocation()));
+                    LatLng coordStation = new LatLng(station.getLatitude(), station.getLongitude());
+                    mMap.addMarker(new MarkerOptions()
+                            .position(coordStation)
+                            .title(station.getName())
+                            .snippet(String.format(getString(R.string.snippet_text), getString(R.string.b), distance))
+                            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
                 }
-        );
-        requestQueueLigneB.add(jsonObjectRequestLigneB);
+            }
+        });
     }
 }
