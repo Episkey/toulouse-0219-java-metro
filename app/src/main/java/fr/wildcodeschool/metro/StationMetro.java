@@ -9,7 +9,6 @@ public class StationMetro {
     private double longitude;
     private int distance = 0;
 
-
     public StationMetro(String name, double latitude, double longitude) {
         this.name = name;
         this.latitude = latitude;
