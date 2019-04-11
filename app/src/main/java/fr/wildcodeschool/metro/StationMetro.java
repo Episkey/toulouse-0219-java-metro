@@ -7,7 +7,7 @@ public class StationMetro {
     private String name;
     private double latitude;
     private double longitude;
-
+    private int distance = 0;
 
     public StationMetro(String name, double latitude, double longitude) {
         this.name = name;
@@ -29,4 +29,8 @@ public class StationMetro {
         locationStation.setLongitude(longitude);
         return locationStation;
     }
+
+    public int getDistance() {return this.distance; }
+
+    public void setDistance(int distance) { this.distance = distance; }
 }

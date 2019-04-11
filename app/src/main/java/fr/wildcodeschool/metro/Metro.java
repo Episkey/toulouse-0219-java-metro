@@ -26,7 +26,6 @@ public class Metro {
         }
         try {
             JSONArray root = new JSONArray(json);
-
             for (int i = 0; i < root.length(); i++) {
                 JSONObject stationInfo = root.getJSONObject(i);
                 JSONObject fields = stationInfo.getJSONObject("fields");
