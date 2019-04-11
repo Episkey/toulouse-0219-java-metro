@@ -45,7 +45,6 @@ import static java.lang.Math.round;
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private static final int REQUEST_LOCATION = 1234;
-    private static final String MTROLIST_JSON = "Toulouse-metro.json";
     private final static String API_KEY = "&key=e083e127-3c7c-4d1b-b5c8-a5838936e4cf";
     private final static String LIGNE_A = "11821949021891694";
     private final static String LIGNE_B = "11821949021892004";

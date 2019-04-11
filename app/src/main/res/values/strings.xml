@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Metro</string>
+    <string name="app_name">Oéssit</string>
     <string name="title_activity_maps">Map</string>
     <string name="title">Important message</string>
     <string name="textMessageConfirmation">Oessit application must have access to your GPS. Please accept or uninstall this application.</string>
@@ -13,4 +13,5 @@
     <string name="snippet_text">Ligne : %s \nDistance : %d meters</string>
     <string name="b">B</string>
     <string name="a">A</string>
+    <string name="switch_add_to_favorite">ADD TO FAVORITE</string>
 </resources>
