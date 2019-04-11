@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                             Toast.makeText(MainActivity.this, getString(R.string.failure_toast), Toast.LENGTH_SHORT).show();
                         }
                     }
-        });
+                });
     }
 
     private void signOut() {

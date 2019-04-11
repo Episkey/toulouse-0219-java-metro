@@ -53,7 +53,7 @@ public class RegisterActivity extends AppCompatActivity {
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             Intent goToMapsActivity = new Intent(RegisterActivity.this, MapsActivity.class);
-                            goToMapsActivity.putExtra("user",user);
+                            goToMapsActivity.putExtra("user", user);
                             startActivity(goToMapsActivity);
 
                         } else {
