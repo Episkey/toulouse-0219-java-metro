@@ -4,9 +4,9 @@
 
     <item
         android:id="@+id/action_favorite"
-        android:icon="@drawable/ic_reorder_black_24dp"
+        android:icon="@android:drawable/ic_dialog_map"
         android:title="@string/buttonFavorite"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/itemMenuFav"
