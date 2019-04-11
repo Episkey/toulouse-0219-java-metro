@@ -17,7 +17,7 @@ public class ListViewStation extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
-        Location locationUser = intent.getParcelableExtra("locationUser");
+        Location locationUser = intent.getParcelableExtra("mLocationUser");
         setContentView(R.layout.list_view_station);
         List<StationMetro> stationList = extractStation(ListViewStation.this);
         for (StationMetro station : stationList) {

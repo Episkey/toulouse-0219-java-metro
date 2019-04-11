@@ -40,7 +40,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private static final String MTROLIST_JSON = "Toulouse-metro.json";
     private GoogleMap mMap;
     private LocationManager mLocationManager = null;
-    private Location locationUser = null;
+    private Location mLocationUser = null;
     private boolean mHasMarkerCreated = false;
 
     @Override
@@ -55,7 +55,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         switch (item.getItemId()) {
             case R.id.action_favorite:
                 Intent goToListView = new Intent(MapsActivity.this, ListViewStation.class);
-                goToListView.putExtra("locationUser", locationUser);
+                goToListView.putExtra("mLocationUser", mLocationUser);
                 startActivity(goToListView);
                 return true;
             default:
@@ -118,9 +118,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 double lat = location.getLatitude();
                 double lng = location.getLongitude();
                 LatLng coordinate = new LatLng(lat, lng);
-                locationUser = new Location("");
-                locationUser.setLatitude(lat);
-                locationUser.setLongitude(lng);
+                mLocationUser = new Location("");
+                mLocationUser.setLatitude(lat);
+                mLocationUser.setLongitude(lng);
                 if (mMap != null && !mHasMarkerCreated) {
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(coordinate));
                     mMap.setMyLocationEnabled(true);
@@ -142,7 +142,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         };
 
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 2, locationListener);
-        FusedLocationProviderClient fusedLocationClient =  LocationServices.getFusedLocationProviderClient(this);
+        FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         fusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
 
             @Override
@@ -170,7 +170,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap.getUiSettings().setZoomControlsEnabled(true);
         mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
         mMap.setMinZoomPreference(12.0f);
-        if (locationUser != null && !mHasMarkerCreated) {
+        if (mLocationUser != null && !mHasMarkerCreated) {
             createMarkers();
         }
     }
@@ -204,7 +204,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 double longStation = geoPoint.getDouble(1);
                 LatLng coordStation = new LatLng(latStation, longStation);
                 StationMetro station = new StationMetro(stationName, latStation, longStation);
-                int distance = round(locationUser.distanceTo(station.getLocation()));
+                int distance = round(mLocationUser.distanceTo(station.getLocation()));
                 if (stationLine.charAt(0) == 'B') {
                     mMap.addMarker(new MarkerOptions()
                             .position(coordStation)

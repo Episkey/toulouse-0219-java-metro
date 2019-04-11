@@ -14,18 +14,18 @@ public class CustomInfoMarkerAdapter implements GoogleMap.InfoWindowAdapter {
 
     public CustomInfoMarkerAdapter(Context mContext) {
         this.mContext = mContext;
-        this.mWindow = LayoutInflater.from(mContext).inflate(R.layout.custom_marker_info,null);
+        this.mWindow = LayoutInflater.from(mContext).inflate(R.layout.custom_marker_info, null);
     }
 
-    private void rendowWindowText (Marker marker, View view) {
+    private void rendowWindowText(Marker marker, View view) {
         String title = marker.getTitle();
         TextView tvTitle = view.findViewById(R.id.title);
-        if(!title.equals("")) {
+        if (!title.equals("")) {
             tvTitle.setText(title);
         }
         String snippet = marker.getSnippet();
         TextView tvSnippet = view.findViewById(R.id.snippet);
-        if(!snippet.equals("")) {
+        if (!snippet.equals("")) {
             tvSnippet.setText(snippet);
         }
     }
