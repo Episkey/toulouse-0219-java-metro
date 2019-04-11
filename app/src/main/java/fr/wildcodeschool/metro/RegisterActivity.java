@@ -1,9 +1,9 @@
 package fr.wildcodeschool.metro;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -16,7 +16,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class MainActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
 
     private static final String TAG = "EmailPassword";
     private FirebaseAuth mAuth;
@@ -24,49 +24,43 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_register);
         mAuth = FirebaseAuth.getInstance();
 
-        Button btNotRegister = findViewById(R.id.btNotRegister);
-        btNotRegister.setOnClickListener(new View.OnClickListener() {
+        Button btRegister = findViewById(R.id.btRegister);
+        btRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent goToRegisterActivity = new Intent(MainActivity.this, RegisterActivity.class);
-                startActivity(goToRegisterActivity);
-            }
-        });
-
-        Button btLogin = findViewById(R.id.btLogin);
-        btLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EditText etLogin = findViewById(R.id.etLogin);
-                EditText etPassword = findViewById(R.id.etPassword);
-                signIn(etLogin.getText().toString(), etPassword.getText().toString());
+                EditText etPseudo = findViewById(R.id.etPseudo);
+                EditText etEmail = findViewById(R.id.etEmail);
+                EditText etPassword = findViewById(R.id.etpassword);
+                EditText etPassword2 = findViewById(R.id.etpassword2);
+                if (etPassword.getText().toString().equals(etPassword2.getText().toString())) {
+                    createAccount(etEmail.getText().toString(), etPassword.getText().toString());
+                } else {
+                    Toast.makeText(RegisterActivity.this, "Passwords don't match, please try again", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
 
-    private void signIn(String email, String password) {
-        mAuth.signInWithEmailAndPassword(email, password)
+    private void createAccount(String email, String password) {
+        mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Log.d(TAG, getString(R.string.success));
+                            Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Intent goToMapsActivity = new Intent(MainActivity.this, MapsActivity.class);
+                            Intent goToMapsActivity = new Intent(RegisterActivity.this, MapsActivity.class);
                             goToMapsActivity.putExtra("user", user);
                             startActivity(goToMapsActivity);
+
                         } else {
-                            Log.w(TAG, getString(R.string.failure), task.getException());
-                            Toast.makeText(MainActivity.this, getString(R.string.failure_toast), Toast.LENGTH_SHORT).show();
+                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                            Toast.makeText(RegisterActivity.this, getString(R.string.authenticationFailed), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
-    }
-
-    private void signOut() {
-        mAuth.signOut();
     }
 }
