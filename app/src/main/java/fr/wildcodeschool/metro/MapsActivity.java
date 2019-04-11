@@ -190,9 +190,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
-        Intent intent = getIntent();
-        FirebaseUser user = intent.getParcelableExtra("user");
-
     private void createMarkers() {
         mHasMarkerCreated = true;
         mMap.setInfoWindowAdapter(new CustomInfoMarkerAdapter(MapsActivity.this));
