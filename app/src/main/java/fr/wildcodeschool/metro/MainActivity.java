@@ -42,12 +42,12 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 EditText etLogin = findViewById(R.id.etLogin);
                 EditText etPassword = findViewById(R.id.etPassword);
-                SignIn(etLogin.getText().toString(), etPassword.getText().toString());
+                signIn(etLogin.getText().toString(), etPassword.getText().toString());
             }
         });
     }
 
-    private void SignIn(String email, String password) {
+    private void signIn(String email, String password) {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
                             Log.d(TAG, getString(R.string.success));
                             FirebaseUser user = mAuth.getCurrentUser();
                             Intent goToMapsActivity = new Intent(MainActivity.this, MapsActivity.class);
-                            goToMapsActivity.putExtra("user",user);
+                            goToMapsActivity.putExtra("user", user);
                             startActivity(goToMapsActivity);
                         } else {
                             Log.w(TAG, getString(R.string.failure), task.getException());
