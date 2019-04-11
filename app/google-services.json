@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "766530808625",
+    "firebase_url": "https://toulouse-0219-java-metro.firebaseio.com",
+    "project_id": "toulouse-0219-java-metro",
+    "storage_bucket": "toulouse-0219-java-metro.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:766530808625:android:03e05cf4bec0506f",
+        "android_client_info": {
+          "package_name": "fr.wildcodeschool.metro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "766530808625-fj0iq852mni30ht8e5hj9viv23d5b809.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fr.wildcodeschool.metro",
+            "certificate_hash": "379f674d936b57d39b230ce5d6336d4e16d9df28"
+          }
+        },
+        {
+          "client_id": "766530808625-qqboc47p7lvjui2dk4le405d73kl0dbt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOkALas6yBLmHaJ9xzGYsU3-Xj5JPL1gc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "766530808625-qqboc47p7lvjui2dk4le405d73kl0dbt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

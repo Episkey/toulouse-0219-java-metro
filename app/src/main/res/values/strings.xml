@@ -10,9 +10,21 @@
     <string name="favorites">Item</string>
     <string name="buttonFavorite">buttonFavorite</string>
     <string name="meters">%d meters</string>
+    <string name="login">Login</string>
+    <string name="password">Password (min. 6 characters)</string>
+    <string name="password2">Password</string>
+    <string name="notRegister">Not register ?</string>
+    <string name="success">SignInWithEmail:success</string>
+    <string name="failure">SignInWithEmail:failure</string>
+    <string name="failure_toast">Authentication failed.</string>
     <string name="snippet_text">Ligne : %s \nDistance : %d meters</string>
     <string name="b">B</string>
     <string name="a">A</string>
     <string name="textForIdMetro">TextView</string>
     <string name="textForNextMetro">TextView</string>
+    <string name="pseudo">pseudo</string>
+    <string name="email">Email</string>
+    <string name="register">Register</string>
+    <string name="authenticationFailed">Authentication failed.</string>
+    <string name="confirm_password">Confirm password</string>
 </resources>
