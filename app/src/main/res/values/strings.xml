@@ -9,8 +9,8 @@
     <string name="favori">favori</string>
     <string name="favorites">Item</string>
     <string name="buttonFavorite">buttonFavorite</string>
-    <string name="ligneB">Ligne :</string>
-    <string name="ligneA">Ligne :</string>
     <string name="meters">%d meters</string>
     <string name="snippet_text">Ligne : %s \nDistance : %d meters</string>
+    <string name="b">B</string>
+    <string name="a">A</string>
 </resources>
