@@ -16,4 +16,7 @@
     <string name="success">SignInWithEmail:success</string>
     <string name="failure">SignInWithEmail:failure</string>
     <string name="failure_toast">Authentication failed.</string>
+    <string name="snippet_text">Ligne : %s \nDistance : %d meters</string>
+    <string name="b">B</string>
+    <string name="a">A</string>
 </resources>

@@ -14,11 +14,19 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -28,19 +36,27 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseUser;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.io.IOException;
+
 import java.io.InputStream;
+
+import static java.lang.Math.round;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private static final int REQUEST_LOCATION = 1234;
     private static final String MTROLIST_JSON = "Toulouse-metro.json";
+    private final static String API_KEY = "&key=e083e127-3c7c-4d1b-b5c8-a5838936e4cf";
+    private final static String LIGNE_A = "11821949021891694";
+    private final static String LIGNE_B = "11821949021892004";
     private GoogleMap mMap;
     private LocationManager mLocationManager = null;
-    private Location locationUser = new Location("");
+    private Location mLocationUser = null;
+    private boolean mHasMarkerCreated = false;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -54,7 +70,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         switch (item.getItemId()) {
             case R.id.action_favorite:
                 Intent goToListView = new Intent(MapsActivity.this, ListViewStation.class);
-                goToListView.putExtra("locationUser", locationUser);
+                goToListView.putExtra("mLocationUser", mLocationUser);
                 startActivity(goToListView);
                 return true;
             default:
@@ -63,11 +79,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private void checkPermission() {
-
         if (ContextCompat.checkSelfPermission(MapsActivity.this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
-
             if (ActivityCompat.shouldShowRequestPermissionRationale(MapsActivity.this,
                     Manifest.permission.ACCESS_FINE_LOCATION)) {
                 ActivityCompat.requestPermissions(MapsActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
@@ -83,10 +97,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onRequestPermissionsResult(int requestCode, String[] permission, int[] grantResults) {
         switch (requestCode) {
             case REQUEST_LOCATION: {
-
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     initLocation();
-
                 } else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity.this);
                     builder.setTitle(R.string.title);
@@ -121,10 +133,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 double lat = location.getLatitude();
                 double lng = location.getLongitude();
                 LatLng coordinate = new LatLng(lat, lng);
-                locationUser.setLatitude(lat);
-                locationUser.setLongitude(lng);
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(coordinate));
-                mMap.setMyLocationEnabled(true);
+                mLocationUser = new Location("");
+                mLocationUser.setLatitude(lat);
+                mLocationUser.setLongitude(lng);
+                if (mMap != null && !mHasMarkerCreated) {
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(coordinate));
+                    mMap.setMyLocationEnabled(true);
+                    createMarkers();
+                }
             }
 
             @Override
@@ -139,16 +155,25 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void onProviderDisabled(String provider) {
             }
         };
+
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 2, locationListener);
+        FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        fusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+
+            @Override
+            public void onSuccess(Location location) {
+                if (location != null && mHasMarkerCreated) {
+                    createMarkers();
+                }
+            }
+        });
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-
         checkPermission();
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -160,54 +185,110 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap.getUiSettings().setZoomControlsEnabled(true);
         mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
         mMap.setMinZoomPreference(12.0f);
+        if (mLocationUser != null && !mHasMarkerCreated) {
+            createMarkers();
+        }
+    }
 
         Intent intent = getIntent();
         FirebaseUser user = intent.getParcelableExtra("user");
 
-        String json = null;
-        try {
-            InputStream is = getAssets().open(MTROLIST_JSON);
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            json = new String(buffer, "UTF-8");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        if (!(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
-            mMap.setMyLocationEnabled(true);
-        }
+    private void createMarkers() {
+        mHasMarkerCreated = true;
+        mMap.setInfoWindowAdapter(new CustomInfoMarkerAdapter(MapsActivity.this));
+        //Station Metro A
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
 
-        try {
-            JSONArray root = new JSONArray(json);
+        String url = "https://api.tisseo.fr/v1/stop_areas.json?displayCoordXY=1&lineId=" + LIGNE_A + API_KEY;
 
-            for (int i = 0; i < root.length(); i++) {
-                JSONObject stationInfo = root.getJSONObject(i);
-                JSONObject fields = stationInfo.getJSONObject("fields");
-                for (int j = 0; j < fields.length(); j++) {
-                    String stationName = fields.getString("nom");
-                    char stationLine = fields.getString("ligne").charAt(0);
-                    JSONArray geoPoint = fields.getJSONArray("geo_point_2d");
-                    double latStation = geoPoint.getDouble(0);
-                    double lngStation = geoPoint.getDouble(1);
-                    LatLng coordStation = new LatLng(latStation, lngStation);
-                    if (stationLine == 'B') {
-                        mMap.addMarker(new MarkerOptions()
-                                .position(coordStation)
-                                .title(stationName)
-                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
+        final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        if (!(ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
+                            mMap.setMyLocationEnabled(true);
+                        }
+                        try {
+                            JSONObject stopAreas = response.getJSONObject("stopAreas");
+                            JSONArray stopArea = stopAreas.getJSONArray("stopArea");
+                            for (int i = 0; i < stopArea.length(); i++) {
+                                JSONObject numStation = (JSONObject) stopArea.get(i);
+                                String cityName = numStation.getString("cityName");
+                                String id = numStation.getString("id");
+                                String name = numStation.getString("name");
+                                double x = numStation.getDouble("x");
+                                double y = numStation.getDouble("y");
+                                LatLng coordStation = new LatLng(y, x);
+                                StationMetro station = new StationMetro(name, y, x);
+                                int distance = round(mLocationUser.distanceTo(station.getLocation()));
+                                mMap.addMarker(new MarkerOptions()
+                                        .position(coordStation)
+                                        .title(name)
+                                        .snippet(String.format(getString(R.string.snippet_text), getString(R.string.a), distance))
+                                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
-                    if (stationLine == 'A') {
-                        mMap.addMarker(new MarkerOptions()
-                                .position(coordStation)
-                                .title(stationName)
-                                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+                },
+                new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("VOLLEY_ERROR", "onErrorResponse: " + error.getMessage());
                     }
                 }
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        );
+        requestQueue.add(jsonObjectRequest);
+
+        //Station Metro B
+        RequestQueue requestQueueLigneB = Volley.newRequestQueue(this);
+
+        String urlLigneB = "https://api.tisseo.fr/v1/stop_areas.json?displayCoordXY=1&lineId=" + LIGNE_B + API_KEY;
+
+        final JsonObjectRequest jsonObjectRequestLigneB = new JsonObjectRequest(
+                Request.Method.GET, urlLigneB, null,
+                new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        if (!(ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
+                            mMap.setMyLocationEnabled(true);
+                        }
+                        try {
+                            JSONObject stopAreas = response.getJSONObject("stopAreas");
+                            JSONArray stopArea = stopAreas.getJSONArray("stopArea");
+                            for (int i = 0; i < stopArea.length(); i++) {
+                                JSONObject numStation = (JSONObject) stopArea.get(i);
+                                String cityName = numStation.getString("cityName");
+                                String id = numStation.getString("id");
+                                String name = numStation.getString("name");
+                                double x = numStation.getDouble("x");
+                                double y = numStation.getDouble("y");
+                                LatLng coordStation = new LatLng(y, x);
+                                StationMetro station = new StationMetro(name, y, x);
+                                int distance = round(mLocationUser.distanceTo(station.getLocation()));
+                                mMap.addMarker(new MarkerOptions()
+                                        .position(coordStation)
+                                        .title(name)
+                                        .snippet(String.format(getString(R.string.snippet_text), getString(R.string.b), distance))
+                                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("VOLLEY_ERROR", "onErrorResponse: " + error.getMessage());
+                    }
+                }
+        );
+        requestQueueLigneB.add(jsonObjectRequestLigneB);
     }
 }
