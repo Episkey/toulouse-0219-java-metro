@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -35,8 +36,10 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
+import java.util.Map;
 
 import static fr.wildcodeschool.metro.Helper.LIGNE_A;
 import static fr.wildcodeschool.metro.Helper.LIGNE_B;
@@ -49,6 +52,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private LocationManager mLocationManager = null;
     private Location mLocationUser = null;
     private boolean mHasMarkerCreated = false;
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -60,11 +64,22 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+
+            case R.id.itemMenuRegister:
+                Intent goToRegisterView = new Intent(MapsActivity.this, RegisterActivity.class);
+                startActivity(goToRegisterView);
+                return true;
+            case R.id.itemMenuLogin:
+                Intent goToMainActivity = new Intent(MapsActivity.this, MainActivity.class);
+                startActivity(goToMainActivity);
+                return true;
             case R.id.action_favorite:
                 Intent goToListView = new Intent(MapsActivity.this, ListViewStation.class);
                 goToListView.putExtra("mLocationUser", mLocationUser);
                 startActivity(goToListView);
                 return true;
+            case R.id.itemMenuLogout:
+                mAuth.signOut();
             default:
                 return super.onOptionsItemSelected(item);
         }

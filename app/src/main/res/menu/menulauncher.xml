@@ -9,6 +9,15 @@
         app:showAsAction="ifRoom" />
 
     <item
+        android:id="@+id/itemMenuRegister"
+        android:title="@string/register" />
+    <item
+        android:id="@+id/itemMenuLogin"
+        android:title="@string/login" />
+    <item
         android:id="@+id/itemMenuFav"
         android:title="@string/favorites" />
+    <item
+        android:id="@+id/itemMenuLogout"
+        android:title="@string/logout" />
 </menu>

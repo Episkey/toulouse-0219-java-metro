@@ -7,7 +7,7 @@
     <string name="decline">Decline</string>
     <string name="item">item</string>
     <string name="favori">favori</string>
-    <string name="favorites">Item</string>
+    <string name="favorites">Favorite stations</string>
     <string name="buttonFavorite">buttonFavorite</string>
     <string name="meters">%d meters</string>
     <string name="login">Login</string>
@@ -28,4 +28,5 @@
     <string name="register">Register</string>
     <string name="authenticationFailed">Authentication failed.</string>
     <string name="confirm_password">Confirm password</string>
+    <string name="logout">Logout</string>
 </resources>
