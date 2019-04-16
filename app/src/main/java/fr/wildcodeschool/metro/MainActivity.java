@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         Button btLoginGoogle = findViewById(R.id.btLoginGoogle);
         btLoginGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
