@@ -29,4 +29,10 @@
     <string name="authenticationFailed">Authentication failed.</string>
     <string name="confirm_password">Confirm password</string>
     <string name="logout">Logout</string>
+    <string name="login_with_google">Sign in with Google</string>
+    <string name="Google_sign_in_failed">Google sign in failed</string>
+    <string name="signIn_with_credential_success">signInWithCredential:success</string>
+    <string name="signIn_With_Credential_failure">signIWithCredential:failure</string>
+    <string name="Authentication_failed">Authentication Failed</string>
+    <string name="googlesignin">GoogleSignIn</string>
 </resources>
