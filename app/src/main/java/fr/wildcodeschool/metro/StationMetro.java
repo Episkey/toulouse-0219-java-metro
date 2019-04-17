@@ -15,6 +15,8 @@ public class StationMetro {
         this.longitude = longitude;
     }
 
+    public StationMetro() {}
+
     public double getLatitude() {
         return latitude;
     }
