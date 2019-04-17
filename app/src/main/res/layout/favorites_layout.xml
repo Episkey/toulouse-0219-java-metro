@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="12dp"
+    android:orientation="vertical"
+    android:padding="5dp">
+
+    <TextView
+        android:id="@+id/tvStationName"
+        style="@style/textRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Station Name" />
+
+    <TextView
+        android:id="@+id/tvStationLine"
+        style="@style/textRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Station Line" />
+
+    <TextView
+        android:id="@+id/tvDistance"
+        style="@style/textRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Distance" />
+
+    <TextView
+        android:id="@+id/tvTubeSchedule"
+        style="@style/textRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tube Schedule" />
+
+    <TextView
+        android:id="@+id/tvInfoMessage"
+        style="@style/textRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Info Message" />
+</LinearLayout>
