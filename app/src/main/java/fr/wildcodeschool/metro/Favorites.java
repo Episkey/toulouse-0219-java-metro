@@ -26,24 +26,12 @@ public class Favorites extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.favorites);
-
         Intent intent = getIntent();
         final Location locationUser = intent.getParcelableExtra("mLocationUser");
-
         mStationMetro = new ArrayList<>();
-
         mRecyclerView = findViewById(R.id.favorites_recycler_view);
-
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
-        //mRecyclerView.setHasFixedSize(true);
-
-        // use a linear layout manager
         layoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(layoutManager);
-
-        // specify an adapter (see also next example)
-
         mAdapter = new FavoritesAdapter(mStationMetro);
         mRecyclerView.setAdapter(mAdapter);
 
