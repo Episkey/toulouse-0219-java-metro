@@ -18,6 +18,10 @@
         android:theme="@style/AppTheme">
         <activity android:name=".StopSchedule"></activity>
         <activity android:name=".RegisterActivity" />
+        <activity android:name=".Favorites">
+
+        </activity>
+        <activity android:name=".FavActivity"></activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

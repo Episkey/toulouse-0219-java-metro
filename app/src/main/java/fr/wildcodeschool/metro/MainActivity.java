@@ -66,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
                 signInGoogle();
             }
         });
-
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken("766530808625-qqboc47p7lvjui2dk4le405d73kl0dbt.apps.googleusercontent.com")
                 .requestEmail()

@@ -10,9 +10,6 @@ public class StationMetro {
     private int distance = 0;
     private String id;
 
-    public StationMetro() {
-    }
-
     public StationMetro(String name, double latitude, double longitude, String id) {
         this.name = name;
         this.latitude = latitude;
@@ -23,6 +20,8 @@ public class StationMetro {
     public String getId() { return id;}
 
     public void setId (String id) {this.id = id;}
+
+    public StationMetro() {}
 
     public double getLatitude() {
         return latitude;
