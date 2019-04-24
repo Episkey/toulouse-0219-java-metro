@@ -31,6 +31,14 @@
           }
         },
         {
+          "client_id": "766530808625-sihga7oven4int6jgh441rjm98qof3s6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fr.wildcodeschool.metro",
+            "certificate_hash": "d4dadc4669f23e4766ca196f3adbf253e6352483"
+          }
+        },
+        {
           "client_id": "766530808625-qqboc47p7lvjui2dk4le405d73kl0dbt.apps.googleusercontent.com",
           "client_type": 3
         }
