@@ -64,7 +64,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_favorite:
+
+            case R.id.listView:
                 Intent goToListView = new Intent(MapsActivity.this, ListViewStation.class);
                 goToListView.putExtra("mLocationUser", mLocationUser);
                 startActivity(goToListView);
@@ -78,9 +79,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 startActivity(goToMainActivity);
                 return true;
             case R.id.itemMenuFav:
-                Intent goToFavView = new Intent(MapsActivity.this, FavActivity.class);
-                startActivity(goToFavView);
-                return true;
+                Intent goToFavorites = new Intent(MapsActivity.this, Favorites.class);
+                goToFavorites.putExtra("mLocationUser", mLocationUser);
+                startActivity(goToFavorites);
             case R.id.itemMenuLogout:
                 mAuth.signOut();
             default:

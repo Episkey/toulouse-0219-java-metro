@@ -66,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
                 signInGoogle();
             }
         });
-
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
@@ -124,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             Log.d(TAG_GOOGLE, getString(R.string.signIn_with_credential_success));
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Snackbar.make(mainLayout, "Welcome " + acct.getDisplayName(), Snackbar.LENGTH_SHORT).show();
+                            Snackbar.make(mainLayout, getString(R.string.welcome) + acct.getDisplayName(), Snackbar.LENGTH_SHORT).show();
                         } else {
                             Log.w(TAG_GOOGLE, getString(R.string.signIn_With_Credential_failure), task.getException());
                             Snackbar.make(mainLayout, R.string.Authentication_failed, Snackbar.LENGTH_SHORT).show();

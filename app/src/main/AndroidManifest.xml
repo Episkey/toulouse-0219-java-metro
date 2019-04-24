@@ -16,9 +16,12 @@
         android:roundIcon="@mipmap/oessit_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".FavActivity"></activity>
+        <activity android:name=".Favorites">
+
+        </activity>
         <activity android:name=".RegisterActivity" />
         <activity android:name=".timeSchedule" />
+        <activity android:name=".FavActivity"></activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -33,8 +36,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
-        <activity android:name=".ListViewStation" />
+
+        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".ListViewStation"></activity>
+
     </application>
 
 </manifest>

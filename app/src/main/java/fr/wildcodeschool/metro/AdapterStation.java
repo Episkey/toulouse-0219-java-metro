@@ -37,8 +37,7 @@ public class AdapterStation extends ArrayAdapter<StationMetro> {
     public View getView(int position, View convertView, ViewGroup parent) {
         final StationMetro item = getItem(position);
         if (null == convertView) {
-            convertView = LayoutInflater.from(getContext())
-                    .inflate(R.layout.view_for_adapter, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.view_for_adapter, parent, false);
         }
         TextView textStation = convertView.findViewById(R.id.tvItemJson);
         textStation.setText(item.getName());
