@@ -21,6 +21,7 @@
         </activity>
         <activity android:name=".RegisterActivity" />
         <activity android:name=".timeSchedule" />
+        <activity android:name=".FavActivity"></activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
