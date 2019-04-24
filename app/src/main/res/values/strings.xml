@@ -8,7 +8,7 @@
     <string name="item">item</string>
     <string name="favori">favori</string>
     <string name="favorites">Favorites stations</string>
-    <string name="buttonFavorite">buttonFavorite</string>
+    <string name="buttonFavorite">buttonListView</string>
     <string name="meters">%d meters</string>
     <string name="login">Login</string>
     <string name="password">Password (min. 6 characters)</string>
@@ -36,4 +36,6 @@
     <string name="Authentication_failed">Authentication Failed</string>
     <string name="googlesignin">GoogleSignIn</string>
     <string name="welcome">Welcome</string>
+    <string name="mapviewbutton">mapViewButton</string>
+    <string name="listviewbutton">listViewButton</string>
 </resources>

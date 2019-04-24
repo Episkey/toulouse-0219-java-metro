@@ -3,12 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/listView"
-        android:icon="@android:drawable/ic_dialog_map"
-        android:title="@string/buttonFavorite"
-        app:showAsAction="ifRoom" />
-
-    <item
         android:id="@+id/itemMenuRegister"
         android:title="@string/register" />
     <item
@@ -20,4 +14,15 @@
     <item
         android:id="@+id/itemMenuLogout"
         android:title="@string/logout" />
+    <item
+        android:id="@+id/btMapView"
+        android:icon="@android:drawable/ic_dialog_map"
+        android:title="@string/mapviewbutton"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/btListView"
+        android:icon="@drawable/ic_reorder_black_24dp"
+        android:title="@string/listviewbutton"
+        android:visible="true"
+        app:showAsAction="always" />
 </menu>

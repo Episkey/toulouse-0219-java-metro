@@ -65,7 +65,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
 
-            case R.id.listView:
+            case R.id.btMapView:
+                Intent goToMapView = new Intent(MapsActivity.this, MapsActivity.class);
+                goToMapView.putExtra("mLocationUser", mLocationUser);
+                startActivity(goToMapView);
+            case R.id.btListView:
                 Intent goToListView = new Intent(MapsActivity.this, ListViewStation.class);
                 goToListView.putExtra("mLocationUser", mLocationUser);
                 startActivity(goToListView);
