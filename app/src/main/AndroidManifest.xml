@@ -16,11 +16,11 @@
         android:roundIcon="@mipmap/oessit_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".StopSchedule"></activity>
+        <activity android:name=".RegisterActivity" />
         <activity android:name=".Favorites">
 
         </activity>
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".timeSchedule" />
         <activity android:name=".FavActivity"></activity>
 
         <meta-data
@@ -36,10 +36,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".ListViewStation"></activity>
-
+        <activity android:name=".MainActivity" />
+        <activity android:name=".ListViewStation" />
     </application>
 
 </manifest>

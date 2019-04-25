@@ -52,7 +52,7 @@ public class Helper {
                                 double x = numStation.getDouble("x");
                                 double y = numStation.getDouble("y");
                                 LatLng coordStation = new LatLng(y, x);
-                                StationMetro station = new StationMetro(name, y, x);
+                                StationMetro station = new StationMetro(name, y, x, id);
                                 int distance = round(locationuser.distanceTo(station.getLocation()));
                                 station.setDistance(distance);
                                 stations.add(station);
@@ -78,3 +78,5 @@ public class Helper {
         void onStationsLoaded(List<StationMetro> stations);
     }
 }
+
+
