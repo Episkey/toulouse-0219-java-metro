@@ -9,6 +9,11 @@ import android.widget.TextView;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.Marker;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CustomInfoMarkerAdapter implements GoogleMap.InfoWindowAdapter {
 
@@ -21,7 +26,7 @@ public class CustomInfoMarkerAdapter implements GoogleMap.InfoWindowAdapter {
     }
 
     private void rendowWindowText(Marker marker, View view) {
-        String title = marker.getTitle();
+        final String title = marker.getTitle();
         TextView tvTitle = view.findViewById(R.id.title);
         if (!title.equals("")) {
             tvTitle.setText(title);
@@ -35,7 +40,7 @@ public class CustomInfoMarkerAdapter implements GoogleMap.InfoWindowAdapter {
         addToFavorite.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    // The toggle is enabled
+
                 } else {
                     // The toggle is disabled
                 }

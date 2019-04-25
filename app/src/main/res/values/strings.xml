@@ -7,7 +7,7 @@
     <string name="decline">Decline</string>
     <string name="item">item</string>
     <string name="favori">favori</string>
-    <string name="favorites">Favorites stations</string>
+    <string name="favorites">Favorite stations</string>
     <string name="buttonFavorite">buttonFavorite</string>
     <string name="meters">%d meters</string>
     <string name="login">Login</string>
@@ -35,5 +35,13 @@
     <string name="signIn_With_Credential_failure">signIWithCredential:failure</string>
     <string name="Authentication_failed">Authentication Failed</string>
     <string name="googlesignin">GoogleSignIn</string>
+    <string name="add_to_favorite">Add to favorite</string>
+    <string name="Important_message">Important message</string>
+    <string name="warning">You must sign in if you want to add this station to your favorites.</string>
+    <string name="sign_in">Sign in</string>
+    <string name="already_in_your_fav">This station is already in your favorites !</string>
+    <string name="ok">OK</string>
+    <string name="station_added">Station %s was added to your favorite stations.</string>
     <string name="welcome">Welcome</string>
+    <string name="schedule">schedule</string>
 </resources>
