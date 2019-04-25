@@ -12,9 +12,6 @@ import java.util.List;
 
 public class RecyclerAdapterStation extends RecyclerView.Adapter<RecyclerAdapterStation.ViewHolder> {
 
-
-
-    // TODO : ajouter le constructeur initialisant la liste d'itinéraires
     List<StationMetro> stationsList = new ArrayList<>();
 
     public RecyclerAdapterStation(List<StationMetro> stationList) {
@@ -24,7 +21,6 @@ public class RecyclerAdapterStation extends RecyclerView.Adapter<RecyclerAdapter
     @Override
     public RecyclerAdapterStation.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        // TODO : associer le layout utilisé par un item
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recycle_view_station, parent, false);
         ViewHolder viewHolder = new ViewHolder(itemView);
@@ -42,7 +38,6 @@ public class RecyclerAdapterStation extends RecyclerView.Adapter<RecyclerAdapter
     @Override
     public int getItemCount() {
 
-        // TODO : modifier pour afficher le nombre de stations
         return stationsList.size();
     }
 

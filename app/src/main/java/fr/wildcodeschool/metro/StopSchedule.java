@@ -31,7 +31,7 @@ public class StopSchedule extends AppCompatActivity {
 
         final RequestQueue requestQueue = Volley.newRequestQueue(this);
 
-        String url = "https://api.tisseo.fr/v1/stops_schedules.json?&stopsList="+ stationId + "&timetableByArea=1&number=2" + API_KEY;
+        String url = "https://api.tisseo.fr/v1/stops_schedules.json?&stopsList=" + stationId + "&timetableByArea=1&number=2" + API_KEY;
 
         final JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                 Request.Method.GET, url, null,
@@ -69,8 +69,8 @@ public class StopSchedule extends AppCompatActivity {
 
                             TextView stationNam = findViewById(R.id.tvDirection1);
                             stationNam.setText(stationName);
-                            TextView waitim = findViewById(R.id.tvNext1);
-                            waitim.setText(waitime);
+                            TextView waitIM = findViewById(R.id.tvNext1);
+                            waitIM.setText(waitime);
                             TextView waitSecon = findViewById(R.id.tvNext2);
                             waitSecon.setText(waitsecond);
 
