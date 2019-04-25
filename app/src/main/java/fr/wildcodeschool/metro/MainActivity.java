@@ -34,11 +34,13 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private GoogleSignInClient mGoogleSignInClient;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
+
 
         Button btNotRegister = findViewById(R.id.btNotRegister);
         btNotRegister.setOnClickListener(new View.OnClickListener() {
@@ -75,15 +77,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void signIn(String email, String password) {
+        final ConstraintLayout mainLayout = findViewById(R.id.main_layout);
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Log.d(TAG, getString(R.string.success));
                             FirebaseUser user = mAuth.getCurrentUser();
                             Intent goToMapsActivity = new Intent(MainActivity.this, MapsActivity.class);
-                            goToMapsActivity.putExtra("user", user);
                             startActivity(goToMapsActivity);
                         } else {
                             Log.w(TAG, getString(R.string.failure), task.getException());
@@ -121,9 +122,9 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Log.d(TAG_GOOGLE, getString(R.string.signIn_with_credential_success));
                             FirebaseUser user = mAuth.getCurrentUser();
                             Snackbar.make(mainLayout, getString(R.string.welcome) + acct.getDisplayName(), Snackbar.LENGTH_SHORT).show();
+
                         } else {
                             Log.w(TAG_GOOGLE, getString(R.string.signIn_With_Credential_failure), task.getException());
                             Snackbar.make(mainLayout, R.string.Authentication_failed, Snackbar.LENGTH_SHORT).show();
