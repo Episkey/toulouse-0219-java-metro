@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
 import android.support.v7.app.AlertDialog;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -103,6 +104,16 @@ public class AdapterStation extends ArrayAdapter<StationMetro> {
                 }
             }
         });
+        Button schedule = convertView.findViewById(R.id.btSchedule);
+        schedule.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goSchedule = new Intent(getContext(), StopSchedule.class);
+                goSchedule.putExtra("STATION_ID", item.getId());
+                getContext().startActivity(goSchedule);
+            }
+        });
         return convertView;
+
     }
 }

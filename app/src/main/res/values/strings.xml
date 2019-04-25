@@ -43,4 +43,5 @@
     <string name="ok">OK</string>
     <string name="station_added">Station %s was added to your favorite stations.</string>
     <string name="welcome">Welcome</string>
+    <string name="schedule">schedule</string>
 </resources>
