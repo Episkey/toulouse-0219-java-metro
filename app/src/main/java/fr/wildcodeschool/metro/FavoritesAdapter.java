@@ -1,5 +1,6 @@
 package fr.wildcodeschool.metro;
 
+import android.app.Application;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -28,9 +29,9 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Favo
     @Override
     public void onBindViewHolder(final FavoritesViewHolder holder, int position) {
         holder.mStationName.setText(mStationMetro.get(position).getName());
-        holder.mStationLine.setText("Tube Line : ");
-        holder.mDistance.setText("Distance : " + mStationMetro.get(position).getDistance() + " meters");
-        holder.mTubeSchedule.setText("Next Train : ");
+        holder.mStationLine.setText("");
+        holder.mDistance.setText(String.format(holder.mDistance.getContext().getString(R.string.distance), mStationMetro.get(position).getDistance()));
+        holder.mTubeSchedule.setText("");
         holder.btDeleteFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
