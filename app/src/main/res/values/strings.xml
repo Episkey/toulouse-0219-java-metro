@@ -44,4 +44,5 @@
     <string name="station_added">Station %s was added to your favorite stations.</string>
     <string name="welcome">Welcome</string>
     <string name="schedule">schedule</string>
+    <string name="distance">Distance : %d meters</string>
 </resources>
