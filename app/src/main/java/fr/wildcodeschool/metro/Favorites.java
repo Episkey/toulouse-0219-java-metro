@@ -26,12 +26,12 @@ import static java.lang.Math.round;
 
 public class Favorites extends AppCompatActivity {
 
+    private static String mUserID;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private ArrayList<StationMetro> mStationMetro = new ArrayList<>();
     private FirebaseAuth mAuth;
-    private static String mUserID;
 
     @Override
     protected void onResume() {

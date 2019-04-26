@@ -21,7 +21,7 @@
         <activity android:name=".Favorites">
 
         </activity>
-        <activity android:name=".FavActivity"></activity>
+        <activity android:name=".RecycleViewStation"></activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -37,7 +37,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-        <activity android:name=".ListViewStation" />
     </application>
 
 </manifest>

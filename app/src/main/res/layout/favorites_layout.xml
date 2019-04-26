@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/favoritesCardView"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_margin="5dp"
     app:cardBackgroundColor="@color/cardViewBackground"
     app:cardCornerRadius="5dp"
@@ -43,7 +43,7 @@
             style="@style/textRecyclerView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/btDeleteFav"
+            app:layout_constraintBottom_toTopOf="@+id/btAddFav"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tvStationLine"
             app:layout_constraintTop_toBottomOf="@+id/tvStationName"
@@ -55,13 +55,13 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btDeleteFav"
+            app:layout_constraintEnd_toStartOf="@+id/btAddFav"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvStationLine"
             tools:text="Next Train" />
 
         <Button
-            android:id="@+id/btDeleteFav"
+            android:id="@+id/btAddFav"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="@android:drawable/ic_delete"

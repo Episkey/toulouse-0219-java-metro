@@ -16,8 +16,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.List;
 
 public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.FavoritesViewHolder> {
-    private FirebaseAuth mAuth;
     private static String mUserID;
+    private FirebaseAuth mAuth;
     private List<StationMetro> mStationMetro;
 
     public FavoritesAdapter(List<StationMetro> stationMetro) {
@@ -72,13 +72,14 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Favo
         public TextView mDistance;
         public TextView mTubeSchedule;
         public Button btDeleteFav;
+
         public FavoritesViewHolder(View favoritesView) {
             super(favoritesView);
             mStationName = favoritesView.findViewById(R.id.tvStationName);
             mStationLine = favoritesView.findViewById(R.id.tvStationLine);
             mDistance = favoritesView.findViewById(R.id.tvDistance);
             mTubeSchedule = favoritesView.findViewById(R.id.tvTubeSchedule);
-            btDeleteFav = favoritesView.findViewById(R.id.btDeleteFav);
+            btDeleteFav = favoritesView.findViewById(R.id.btAddFav);
         }
     }
 }

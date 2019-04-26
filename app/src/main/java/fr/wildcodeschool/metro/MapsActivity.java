@@ -14,18 +14,10 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -39,7 +31,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
-import java.util.Map;
 
 import static fr.wildcodeschool.metro.Helper.LIGNE_A;
 import static fr.wildcodeschool.metro.Helper.LIGNE_B;
@@ -66,7 +57,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         switch (item.getItemId()) {
 
             case R.id.listView:
-                Intent goToListView = new Intent(MapsActivity.this, ListViewStation.class);
+                Intent goToListView = new Intent(MapsActivity.this, RecycleViewStation.class);
                 goToListView.putExtra("mLocationUser", mLocationUser);
                 startActivity(goToListView);
                 return true;

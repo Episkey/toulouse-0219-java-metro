@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,11 +26,11 @@ public class RecycleViewStation extends AppCompatActivity {
 
         final List<StationMetro> stationList = new ArrayList<>();
 
-        RecyclerView recycleListStation = findViewById(R.id.list_stations);
+        RecyclerView recycleListStation = findViewById(R.id.recycle_view_station_list);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recycleListStation.setLayoutManager(layoutManager);
 
-         final RecyclerAdapterStation adapter = new  RecyclerAdapterStation(stationList);
+        final RecyclerAdapterStation adapter = new RecyclerAdapterStation(stationList);
         recycleListStation.setAdapter(adapter);
 
         Helper.extractStation(RecycleViewStation.this, locationUser, LIGNE_A, new Helper.StationListener() {
