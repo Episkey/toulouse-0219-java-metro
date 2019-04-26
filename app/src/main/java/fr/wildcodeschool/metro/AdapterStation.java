@@ -49,21 +49,19 @@ public class AdapterStation extends ArrayAdapter<StationMetro> {
             @Override
             public void onClick(final View v) {
                 mAuth = FirebaseAuth.getInstance();
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                FirebaseUser user = mAuth.getCurrentUser();
 
                 if (user != null) {
                     mUserID = user.getUid();
-                    final String title = item.getName();
                     final FirebaseDatabase database = FirebaseDatabase.getInstance();
-
                     DatabaseReference userIdRef = database.getReference(mUserID);
                     userIdRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             int redundancy = 0;
                             for (DataSnapshot stationSnapshot : dataSnapshot.getChildren()) {
-                                String stationName = stationSnapshot.getValue(String.class);
-                                if (stationName.equals(title)) {
+                                StationMetro station = stationSnapshot.getValue(StationMetro.class);
+                                if (station.getName().equals(item.getName())) {
                                     redundancy = 1;
                                     break;
                                 }
@@ -71,8 +69,9 @@ public class AdapterStation extends ArrayAdapter<StationMetro> {
 
                             if (redundancy == 0) {
                                 DatabaseReference stationRef = database.getReference(mUserID);
-                                stationRef.push().setValue(title);
-                                Toast.makeText(getContext(), String.format(getContext().getString(R.string.station_added), title), Toast.LENGTH_LONG).show();
+                                stationRef.push().setValue(item);
+                                Toast.makeText(getContext(), String.format(getContext().getString(R.string.station_added), item.getName()), Toast.LENGTH_LONG).show();
+
                             } else {
                                 AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(v.getContext());
                                 builder.setTitle(R.string.Important_message);

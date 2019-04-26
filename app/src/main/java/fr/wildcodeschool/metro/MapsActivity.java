@@ -73,8 +73,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 Intent goToFavorites = new Intent(MapsActivity.this, Favorites.class);
                 goToFavorites.putExtra("mLocationUser", mLocationUser);
                 startActivity(goToFavorites);
+                return true;
             case R.id.itemMenuLogout:
                 mAuth.signOut();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -179,6 +181,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     @Override

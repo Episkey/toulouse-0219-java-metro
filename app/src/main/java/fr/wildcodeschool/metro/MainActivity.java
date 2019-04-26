@@ -75,15 +75,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void signIn(String email, String password) {
+        final ConstraintLayout mainLayout = findViewById(R.id.main_layout);
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Log.d(TAG, getString(R.string.success));
                             FirebaseUser user = mAuth.getCurrentUser();
                             Intent goToMapsActivity = new Intent(MainActivity.this, MapsActivity.class);
-                            goToMapsActivity.putExtra("user", user);
                             startActivity(goToMapsActivity);
                         } else {
                             Log.w(TAG, getString(R.string.failure), task.getException());
@@ -121,9 +120,8 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Log.d(TAG_GOOGLE, getString(R.string.signIn_with_credential_success));
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Snackbar.make(mainLayout, getString(R.string.welcome) + acct.getDisplayName(), Snackbar.LENGTH_SHORT).show();
+                            Snackbar.make(mainLayout, String.format(getString(R.string.welcome_name), acct.getDisplayName()), Snackbar.LENGTH_SHORT).show();
                         } else {
                             Log.w(TAG_GOOGLE, getString(R.string.signIn_With_Credential_failure), task.getException());
                             Snackbar.make(mainLayout, R.string.Authentication_failed, Snackbar.LENGTH_SHORT).show();
@@ -131,7 +129,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
-
     private void signInGoogle() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
