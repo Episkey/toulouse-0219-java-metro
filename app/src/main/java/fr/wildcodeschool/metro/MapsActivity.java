@@ -57,7 +57,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         switch (item.getItemId()) {
 
             case R.id.listView:
-                Intent goToListView = new Intent(MapsActivity.this, ListViewStation.class);
+                Intent goToListView = new Intent(MapsActivity.this, RecycleViewStation.class);
                 goToListView.putExtra("mLocationUser", mLocationUser);
                 startActivity(goToListView);
                 return true;

@@ -1,6 +1,5 @@
 package fr.wildcodeschool.metro;
 
-import android.app.Application;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -61,7 +60,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Favo
             mStationLine = favoritesView.findViewById(R.id.tvStationLine);
             mDistance = favoritesView.findViewById(R.id.tvDistance);
             mTubeSchedule = favoritesView.findViewById(R.id.tvTubeSchedule);
-            btDeleteFav = favoritesView.findViewById(R.id.btDeleteFav);
+            btDeleteFav = favoritesView.findViewById(R.id.btAddFav);
         }
     }
 }

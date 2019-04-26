@@ -27,7 +27,7 @@ public class RecycleViewStation extends AppCompatActivity {
 
         final List<StationMetro> stationList = new ArrayList<>();
 
-        RecyclerView recycleListStation = findViewById(R.id.list_stations);
+        RecyclerView recycleListStation = findViewById(R.id.recycle_view_station_list);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recycleListStation.setLayoutManager(layoutManager);
 
