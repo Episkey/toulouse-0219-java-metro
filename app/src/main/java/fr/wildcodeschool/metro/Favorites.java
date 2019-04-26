@@ -49,14 +49,16 @@ public class Favorites extends AppCompatActivity {
 
             final FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference userIdRef = database.getReference(mUserID);
-            userIdRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            userIdRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    mStationMetro.clear();
                     for (DataSnapshot stationSnapshot : dataSnapshot.getChildren()) {
                         StationMetro station = stationSnapshot.getValue(StationMetro.class);
                         int distance = round(locationUser.distanceTo(station.getLocation()));
                         station.setDistance(distance);
                         mStationMetro.add(station);
+                        //TODO: appel API avec id pour avoir les horaires
                     }
                     Collections.sort(mStationMetro, new Comparator<StationMetro>() {
                         public int compare(StationMetro o1, StationMetro o2) {

@@ -1,5 +1,7 @@
 package fr.wildcodeschool.metro;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,10 +10,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.List;
 
 public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.FavoritesViewHolder> {
-
+    private FirebaseAuth mAuth;
+    private static String mUserID;
     private List<StationMetro> mStationMetro;
 
     public FavoritesAdapter(List<StationMetro> stationMetro) {
@@ -27,16 +34,30 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Favo
 
     @Override
     public void onBindViewHolder(final FavoritesViewHolder holder, int position) {
-        holder.mStationName.setText(mStationMetro.get(position).getName());
+        final StationMetro station = mStationMetro.get(position);
+        holder.mStationName.setText(station.getName());
         holder.mStationLine.setText("");
-        holder.mDistance.setText(String.format(holder.mDistance.getContext().getString(R.string.distance), mStationMetro.get(position).getDistance()));
+        holder.mDistance.setText(String.format(holder.mDistance.getContext().getString(R.string.distance), station.getDistance()));
         holder.mTubeSchedule.setText("");
         holder.btDeleteFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO Remove from database
-                Intent intent = new Intent(v.getContext(), MapsActivity.class);
-                v.getContext().startActivity(intent);
+                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                builder.setTitle(R.string.Important_message);
+                builder.setMessage(R.string.add_favorite);
+                builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        mAuth = FirebaseAuth.getInstance();
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        mUserID = user.getUid();
+                        database.getReference(mUserID).child(station.getId()).removeValue();
+                    }
+                });
+                builder.setNegativeButton(R.string.no, null);
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
     }
@@ -47,13 +68,11 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Favo
     }
 
     public static class FavoritesViewHolder extends RecyclerView.ViewHolder {
-
         public TextView mStationName;
         public TextView mStationLine;
         public TextView mDistance;
         public TextView mTubeSchedule;
         public Button btDeleteFav;
-
         public FavoritesViewHolder(View favoritesView) {
             super(favoritesView);
             mStationName = favoritesView.findViewById(R.id.tvStationName);
@@ -64,4 +83,3 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Favo
         }
     }
 }
-

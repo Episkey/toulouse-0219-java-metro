@@ -54,24 +54,13 @@ public class AdapterStation extends ArrayAdapter<StationMetro> {
                 if (user != null) {
                     mUserID = user.getUid();
                     final FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    DatabaseReference userIdRef = database.getReference(mUserID);
+                    final DatabaseReference userIdRef = database.getReference(mUserID).child(item.getId());
                     userIdRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            int redundancy = 0;
-                            for (DataSnapshot stationSnapshot : dataSnapshot.getChildren()) {
-                                StationMetro station = stationSnapshot.getValue(StationMetro.class);
-                                if (station.getName().equals(item.getName())) {
-                                    redundancy = 1;
-                                    break;
-                                }
-                            }
-
-                            if (redundancy == 0) {
-                                DatabaseReference stationRef = database.getReference(mUserID);
-                                stationRef.push().setValue(item);
+                            if (dataSnapshot.getValue() == null) {
+                                userIdRef.setValue(item);
                                 Toast.makeText(getContext(), String.format(getContext().getString(R.string.station_added), item.getName()), Toast.LENGTH_LONG).show();
-
                             } else {
                                 AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(v.getContext());
                                 builder.setTitle(R.string.Important_message);
@@ -113,6 +102,5 @@ public class AdapterStation extends ArrayAdapter<StationMetro> {
             }
         });
         return convertView;
-
     }
 }

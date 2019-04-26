@@ -47,6 +47,9 @@
     <string name="must_sign_in">You must sign in if you want to see your favorite stations.</string>
     <string name="space" />
     <string name="welcome_name">Welcome %s</string>
+    <string name="add_favorite">Do you really want to delete this station from your favorites ?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
     <string name="timetable">Timetable</string>
     <string name="_2nd_train">2nd TRAIN</string>
     <string name="_1st_train">1st TRAIN</string>

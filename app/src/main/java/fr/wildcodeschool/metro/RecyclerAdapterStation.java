@@ -44,6 +44,7 @@ public class RecyclerAdapterStation extends RecyclerView.Adapter<RecyclerAdapter
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         final StationMetro stationmodel = stationsList.get(i);
+        viewHolder.mStationName.setText(stationmodel.getName().toString());
         viewHolder.mStationName.setText(stationmodel.getName());
         viewHolder.mStationLine.setText("");
         viewHolder.mDistance.setText(String.format(viewHolder.mDistance.getContext().getString(R.string.distance_metro), Integer.toString(stationmodel.getDistance())));
