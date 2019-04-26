@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Snackbar.make(mainLayout, getString(R.string.welcome) + acct.getDisplayName(), Snackbar.LENGTH_SHORT).show();
+                            Snackbar.make(mainLayout, String.format(getString(R.string.welcome_name), acct.getDisplayName()), Snackbar.LENGTH_SHORT).show();
 
                         } else {
                             Log.w(TAG_GOOGLE, getString(R.string.signIn_With_Credential_failure), task.getException());

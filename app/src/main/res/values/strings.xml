@@ -42,9 +42,9 @@
     <string name="already_in_your_fav">This station is already in your favorites !</string>
     <string name="ok">OK</string>
     <string name="station_added">Station %s was added to your favorite stations.</string>
-    <string name="welcome">Welcome_</string>
     <string name="schedule">schedule</string>
     <string name="distance">Distance : %d meters</string>
     <string name="must_sign_in">You must sign in if you want to see your favorite stations.</string>
     <string name="space" />
+    <string name="welcome_name">Welcome %s</string>
 </resources>

@@ -44,7 +44,7 @@ public class Favorites extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(layoutManager);
 
-        if (!(user == null)) {
+        if (user != null) {
             mUserID = user.getUid();
 
             final FirebaseDatabase database = FirebaseDatabase.getInstance();
