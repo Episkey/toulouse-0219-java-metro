@@ -31,8 +31,6 @@ public class RecyclerAdapterStation extends RecyclerView.Adapter<RecyclerAdapter
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         StationMetro stationmodel = stationsList.get(i);
         viewHolder.tvStationName.setText(stationmodel.getName().toString());
-        //viewHolder.tvNextDeparture.setText(stationmodel.getDeparture());
-
     }
 
     @Override
