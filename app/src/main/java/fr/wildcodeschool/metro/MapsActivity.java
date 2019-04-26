@@ -175,8 +175,16 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             @Override
             public void onSuccess(Location location) {
-                if (location != null && mHasMarkerCreated) {
-                    createMarkers();
+                if (location != null) {
+                    mLocationUser = location;
+                    if (!mHasMarkerCreated && mMap != null) {
+                        double lat = location.getLatitude();
+                        double lng = location.getLongitude();
+                        LatLng coordinate = new LatLng(lat, lng);
+                        mMap.moveCamera(CameraUpdateFactory.newLatLng(coordinate));
+                        mMap.setMyLocationEnabled(true);
+                        createMarkers();
+                    }
                 }
             }
         });
@@ -204,6 +212,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
         mMap.setMinZoomPreference(12.0f);
         if (mLocationUser != null && !mHasMarkerCreated) {
+            double lat = mLocationUser.getLatitude();
+            double lng = mLocationUser.getLongitude();
+            LatLng coordinate = new LatLng(lat, lng);
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(coordinate));
             createMarkers();
         }
     }
