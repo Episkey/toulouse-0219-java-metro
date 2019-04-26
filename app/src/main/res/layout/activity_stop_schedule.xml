@@ -50,10 +50,10 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/tvNext1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/g" />
+            app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
         <TextView
-            android:id="@+id/g"
+            android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -98,7 +98,7 @@
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/tvSecondTrain"
-            app:layout_constraintStart_toEndOf="@+id/g"
+            app:layout_constraintStart_toEndOf="@+id/tvTitle"
             app:layout_constraintTop_toBottomOf="@+id/tvStopName" />
 
         <TextView

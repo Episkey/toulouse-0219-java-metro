@@ -13,7 +13,7 @@
     <string name="login">Login</string>
     <string name="password">Password (min. 6 characters)</string>
     <string name="password2">Password</string>
-    <string name="notRegister">Not register ?</string>
+    <string name="notRegister">Not registered ?</string>
     <string name="success">SignInWithEmail:success</string>
     <string name="failure">SignInWithEmail:failure</string>
     <string name="failure_toast">Authentication failed.</string>

@@ -24,9 +24,9 @@ import java.util.List;
 
 public class RecyclerAdapterStation extends RecyclerView.Adapter<RecyclerAdapterStation.ViewHolder> {
 
+    private static String mUserID;
     List<StationMetro> stationsList;
     private FirebaseAuth mAuth;
-    private static String mUserID;
 
     public RecyclerAdapterStation(List<StationMetro> stationList) {
         stationsList = stationList;
@@ -44,7 +44,6 @@ public class RecyclerAdapterStation extends RecyclerView.Adapter<RecyclerAdapter
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         final StationMetro stationmodel = stationsList.get(i);
-        viewHolder.mStationName.setText(stationmodel.getName().toString());
         viewHolder.mStationName.setText(stationmodel.getName());
         viewHolder.mStationLine.setText("");
         viewHolder.mDistance.setText(String.format(viewHolder.mDistance.getContext().getString(R.string.distance_metro), Integer.toString(stationmodel.getDistance())));
@@ -69,11 +68,10 @@ public class RecyclerAdapterStation extends RecyclerView.Adapter<RecyclerAdapter
                     userIdRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            if (dataSnapshot.getValue() ==null) {
+                            if (dataSnapshot.getValue() == null) {
                                 userIdRef.setValue(stationmodel);
                                 Toast.makeText(v.getContext(), String.format(v.getContext().getString(R.string.station_added), stationmodel.getName()), Toast.LENGTH_LONG).show();
-                            }
-                            else {
+                            } else {
                                 AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(v.getContext());
                                 builder.setTitle(R.string.Important_message);
                                 builder.setMessage(R.string.already_in_your_fav);
@@ -87,7 +85,6 @@ public class RecyclerAdapterStation extends RecyclerView.Adapter<RecyclerAdapter
                         public void onCancelled(DatabaseError databaseError) {
                         }
                     });
-
                 } else {
                     AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(v.getContext());
                     builder.setTitle(R.string.Important_message);

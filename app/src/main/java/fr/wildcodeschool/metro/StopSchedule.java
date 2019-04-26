@@ -90,7 +90,6 @@ public class StopSchedule extends AppCompatActivity {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        // Afficher l'erreur
                         Log.d("VOLLEY_ERROR", "onErrorResponse: " + error.getMessage());
                     }
                 }

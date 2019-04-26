@@ -17,11 +17,16 @@ public class StationMetro {
         this.id = id;
     }
 
-    public String getId() { return id;}
+    public StationMetro() {
+    }
 
-    public void setId (String id) {this.id = id;}
+    public String getId() {
+        return id;
+    }
 
-    public StationMetro() {}
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public double getLatitude() {
         return latitude;
@@ -54,7 +59,11 @@ public class StationMetro {
         return locationStation;
     }
 
-    public int getDistance() {return this.distance; }
+    public int getDistance() {
+        return this.distance;
+    }
 
-    public void setDistance(int distance) { this.distance = distance; }
+    public void setDistance(int distance) {
+        this.distance = distance;
+    }
 }
