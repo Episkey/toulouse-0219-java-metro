@@ -34,13 +34,11 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private GoogleSignInClient mGoogleSignInClient;
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mAuth = FirebaseAuth.getInstance();
-
 
         Button btNotRegister = findViewById(R.id.btNotRegister);
         btNotRegister.setOnClickListener(new View.OnClickListener() {
@@ -124,7 +122,6 @@ public class MainActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
                             Snackbar.make(mainLayout, String.format(getString(R.string.welcome_name), acct.getDisplayName()), Snackbar.LENGTH_SHORT).show();
-
                         } else {
                             Log.w(TAG_GOOGLE, getString(R.string.signIn_With_Credential_failure), task.getException());
                             Snackbar.make(mainLayout, R.string.Authentication_failed, Snackbar.LENGTH_SHORT).show();
@@ -132,7 +129,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
-
     private void signInGoogle() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
