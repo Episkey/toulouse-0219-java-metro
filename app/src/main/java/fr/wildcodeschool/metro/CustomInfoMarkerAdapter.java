@@ -3,8 +3,6 @@ package fr.wildcodeschool.metro;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.CompoundButton;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.GoogleMap;
@@ -21,7 +19,7 @@ public class CustomInfoMarkerAdapter implements GoogleMap.InfoWindowAdapter {
     }
 
     private void rendowWindowText(Marker marker, View view) {
-        String title = marker.getTitle();
+        final String title = marker.getTitle();
         TextView tvTitle = view.findViewById(R.id.title);
         if (!title.equals("")) {
             tvTitle.setText(title);
@@ -31,17 +29,6 @@ public class CustomInfoMarkerAdapter implements GoogleMap.InfoWindowAdapter {
         if (!snippet.equals("")) {
             tvSnippet.setText(snippet);
         }
-        Switch addToFavorite = view.findViewById(R.id.swFavorite);
-        addToFavorite.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    // The toggle is enabled
-                } else {
-                    // The toggle is disabled
-                }
-            }
-        });
-
     }
 
     @Override

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/listViewCardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    app:cardBackgroundColor="@color/cardViewBackground"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="5dp">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvStationName"
+            style="@style/stationName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/tvStationLine"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Station Name" />
+
+        <TextView
+            android:id="@+id/tvStationLine"
+            style="@style/textRecyclerView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/btSchedule"
+            app:layout_constraintEnd_toStartOf="@+id/tvDistance"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvStationName"
+            tools:text="Tube Line" />
+
+        <TextView
+            android:id="@+id/tvDistance"
+            style="@style/textRecyclerView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/btAddFav"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvStationLine"
+            app:layout_constraintTop_toBottomOf="@+id/tvStationName"
+            tools:text="Distance" />
+
+        <Button
+            android:id="@+id/btAddFav"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@android:drawable/btn_star_big_on"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDistance" />
+
+        <Button
+            android:id="@+id/btSchedule"
+            android:layout_width="125dp"
+            android:layout_height="36dp"
+            android:background="@color/buttonScheduleBackground"
+            android:text="@string/timetable"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvStationLine" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.v7.widget.CardView>

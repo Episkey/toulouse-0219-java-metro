@@ -14,17 +14,10 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -35,6 +28,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
 
@@ -49,6 +43,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private LocationManager mLocationManager = null;
     private Location mLocationUser = null;
     private boolean mHasMarkerCreated = false;
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -60,10 +55,27 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_favorite:
-                Intent goToListView = new Intent(MapsActivity.this, ListViewStation.class);
+
+            case R.id.listView:
+                Intent goToListView = new Intent(MapsActivity.this, RecycleViewStation.class);
                 goToListView.putExtra("mLocationUser", mLocationUser);
                 startActivity(goToListView);
+                return true;
+            case R.id.itemMenuRegister:
+                Intent goToRegisterView = new Intent(MapsActivity.this, RegisterActivity.class);
+                startActivity(goToRegisterView);
+                return true;
+            case R.id.itemMenuLogin:
+                Intent goToMainActivity = new Intent(MapsActivity.this, MainActivity.class);
+                startActivity(goToMainActivity);
+                return true;
+            case R.id.itemMenuFav:
+                Intent goToFavorites = new Intent(MapsActivity.this, Favorites.class);
+                goToFavorites.putExtra("mLocationUser", mLocationUser);
+                startActivity(goToFavorites);
+                return true;
+            case R.id.itemMenuLogout:
+                mAuth.signOut();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -154,8 +166,16 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             @Override
             public void onSuccess(Location location) {
-                if (location != null && mHasMarkerCreated) {
-                    createMarkers();
+                if (location != null) {
+                    mLocationUser = location;
+                    if (!mHasMarkerCreated && mMap != null) {
+                        double lat = location.getLatitude();
+                        double lng = location.getLongitude();
+                        LatLng coordinate = new LatLng(lat, lng);
+                        mMap.moveCamera(CameraUpdateFactory.newLatLng(coordinate));
+                        mMap.setMyLocationEnabled(true);
+                        createMarkers();
+                    }
                 }
             }
         });
@@ -172,12 +192,21 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.getUiSettings().setZoomControlsEnabled(true);
         mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
         mMap.setMinZoomPreference(12.0f);
         if (mLocationUser != null && !mHasMarkerCreated) {
+            double lat = mLocationUser.getLatitude();
+            double lng = mLocationUser.getLongitude();
+            LatLng coordinate = new LatLng(lat, lng);
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(coordinate));
             createMarkers();
         }
     }

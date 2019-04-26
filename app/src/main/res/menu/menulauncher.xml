@@ -3,12 +3,21 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/action_favorite"
+        android:id="@+id/listView"
         android:icon="@android:drawable/ic_dialog_map"
         android:title="@string/buttonFavorite"
         app:showAsAction="ifRoom" />
 
     <item
+        android:id="@+id/itemMenuRegister"
+        android:title="@string/register" />
+    <item
+        android:id="@+id/itemMenuLogin"
+        android:title="@string/login" />
+    <item
         android:id="@+id/itemMenuFav"
         android:title="@string/favorites" />
+    <item
+        android:id="@+id/itemMenuLogout"
+        android:title="@string/logout" />
 </menu>

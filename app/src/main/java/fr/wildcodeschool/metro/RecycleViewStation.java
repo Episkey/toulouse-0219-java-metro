@@ -4,7 +4,8 @@ import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.ListView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,22 +15,25 @@ import java.util.List;
 import static fr.wildcodeschool.metro.Helper.LIGNE_A;
 import static fr.wildcodeschool.metro.Helper.LIGNE_B;
 
-public class ListViewStation extends AppCompatActivity {
+public class RecycleViewStation extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.recycle_view_station_list);
         Intent intent = getIntent();
         final Location locationUser = intent.getParcelableExtra("mLocationUser");
 
-        setContentView(R.layout.list_view_station);
-
         final List<StationMetro> stationList = new ArrayList<>();
-        ListView listMetro = findViewById(R.id.lvStations);
-        final AdapterStation adapter = new AdapterStation(ListViewStation.this, stationList, locationUser);
-        listMetro.setAdapter(adapter);
 
-        Helper.extractStation(ListViewStation.this, locationUser, LIGNE_A, new Helper.StationListener() {
+        RecyclerView recycleListStation = findViewById(R.id.recycle_view_station_list);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        recycleListStation.setLayoutManager(layoutManager);
+
+        final RecyclerAdapterStation adapter = new RecyclerAdapterStation(stationList);
+        recycleListStation.setAdapter(adapter);
+
+        Helper.extractStation(RecycleViewStation.this, locationUser, LIGNE_A, new Helper.StationListener() {
             @Override
             public void onStationsLoaded(List<StationMetro> stations) {
                 stationList.addAll(stations);
@@ -42,7 +46,7 @@ public class ListViewStation extends AppCompatActivity {
             }
         });
 
-        Helper.extractStation(ListViewStation.this, locationUser, LIGNE_B, new Helper.StationListener() {
+        Helper.extractStation(RecycleViewStation.this, locationUser, LIGNE_B, new Helper.StationListener() {
             @Override
             public void onStationsLoaded(List<StationMetro> stations) {
                 stationList.addAll(stations);
