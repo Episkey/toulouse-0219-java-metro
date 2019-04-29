@@ -37,7 +37,6 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Favo
         holder.mStationName.setText(station.getName());
         holder.mStationLine.setText("");
         holder.mDistance.setText(String.format(holder.mDistance.getContext().getString(R.string.distance), station.getDistance()));
-        holder.mTubeSchedule.setText("");
         holder.btDeleteFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,7 +77,6 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Favo
             mStationName = favoritesView.findViewById(R.id.tvStationName);
             mStationLine = favoritesView.findViewById(R.id.tvStationLine);
             mDistance = favoritesView.findViewById(R.id.tvDistance);
-            mTubeSchedule = favoritesView.findViewById(R.id.tvTubeSchedule);
             btDeleteFav = favoritesView.findViewById(R.id.btAddFav);
         }
     }

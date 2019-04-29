@@ -46,7 +46,6 @@ public class StopSchedule extends Activity {
                             JSONArray journeys = num.getJSONArray("journeys");
                             JSONObject nextMetro = (JSONObject) journeys.get(0);
                             String waitime = nextMetro.getString("waiting_time");
-
                             JSONObject nextMetro2 = (JSONObject) journeys.get(1);
                             String waitsecond = nextMetro2.getString("waiting_time");
 

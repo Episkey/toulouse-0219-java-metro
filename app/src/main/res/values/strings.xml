@@ -51,8 +51,7 @@
     <string name="yes">Oui</string>
     <string name="no">Non</string>
     <string name="timetable">Prochains passages</string>
-    <string name="_2nd_train">2e métro</string>
-    <string name="_1st_train">1er métro</string>
-    <string name="direction">DIRECTION</string>
+    <string name="_1st_train">Prochains passages</string>
+    <string name="direction">Direction</string>
     <string name="distance_metro">Distance : %s metres</string>
 </resources>
