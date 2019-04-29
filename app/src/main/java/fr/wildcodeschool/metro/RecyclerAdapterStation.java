@@ -35,7 +35,6 @@ public class RecyclerAdapterStation extends RecyclerView.Adapter<RecyclerAdapter
 
     @Override
     public RecyclerAdapterStation.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recycle_view_station, parent, false);
         ViewHolder viewHolder = new ViewHolder(itemView);
@@ -44,12 +43,12 @@ public class RecyclerAdapterStation extends RecyclerView.Adapter<RecyclerAdapter
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
-
         final StationMetro stationmodel = stationsList.get(i);
         viewHolder.mStationName.setText(stationmodel.getName());
         viewHolder.mStationLine.setText("");
         viewHolder.mDistance.setText(String.format(viewHolder.mDistance.getContext().getString(R.string.distance_metro), Integer.toString(stationmodel.getDistance())));
         viewHolder.btSchedule.setOnClickListener(new View.OnClickListener() {
+            
             @Override
             public void onClick(View v) {
                 Intent goSchedule = new Intent(v.getContext(), StopSchedule.class);
