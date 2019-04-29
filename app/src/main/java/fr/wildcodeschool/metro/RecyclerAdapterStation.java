@@ -110,15 +110,6 @@ public class RecyclerAdapterStation extends RecyclerView.Adapter<RecyclerAdapter
                     }
                 }
             });
-            /*viewHolder.btAddFav.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    viewHolder.btAddFav.setChecked(false);
-                    if (isChecked) {
-
-                    }
-                }
-            });*/
         } else {
             viewHolder.btAddFav.setOnClickListener(new View.OnClickListener() {
                 @Override
