@@ -49,7 +49,7 @@ public class RecyclerAdapterStation extends RecyclerView.Adapter<RecyclerAdapter
         viewHolder.mStationLine.setText("");
         viewHolder.mDistance.setText(String.format(viewHolder.mDistance.getContext().getString(R.string.distance_metro), Integer.toString(stationmodel.getDistance())));
         viewHolder.btSchedule.setOnClickListener(new View.OnClickListener() {
-            
+
             @Override
             public void onClick(View v) {
                 Intent goSchedule = new Intent(v.getContext(), StopSchedule.class);
@@ -85,8 +85,7 @@ public class RecyclerAdapterStation extends RecyclerView.Adapter<RecyclerAdapter
                         DatabaseReference userIdRef = database.getReference(mUserID).child(stationmodel.getId());
                         userIdRef.setValue(stationmodel);
                         viewHolder.btAddFav.setChecked(true);
-                    }
-                    else {
+                    } else {
                         AlertDialog.Builder builder = new AlertDialog.Builder(viewHolder.btAddFav.getContext());
                         builder.setTitle(R.string.Important_message);
                         builder.setMessage(R.string.add_favorite);
