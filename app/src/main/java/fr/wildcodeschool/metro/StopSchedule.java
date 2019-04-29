@@ -21,6 +21,7 @@ import org.json.JSONObject;
 public class StopSchedule extends Activity {
 
     private final static String API_KEY = "&key=e083e127-3c7c-4d1b-b5c8-a5838936e4cf";
+    private static int REFRESH_DELAY = 1000;
 
     public void loadSchedule(String stationId) {
         final RequestQueue requestQueue = Volley.newRequestQueue(this);
@@ -99,7 +100,7 @@ public class StopSchedule extends Activity {
             @Override
             public void run() {
                 loadSchedule(stationId);
-                handler.postDelayed(this, 10000);
+                handler.postDelayed(this, REFRESH_DELAY);
             }
         };
         handler.postDelayed(runnable, 0);
