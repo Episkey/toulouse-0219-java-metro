@@ -44,11 +44,12 @@ public class RecyclerAdapterStation extends RecyclerView.Adapter<RecyclerAdapter
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
         final StationMetro stationmodel = stationsList.get(i);
+        viewHolder.btAddFav.setChecked(false);
         viewHolder.mStationName.setText(stationmodel.getName());
         viewHolder.mStationLine.setText("");
         viewHolder.mDistance.setText(String.format(viewHolder.mDistance.getContext().getString(R.string.distance_metro), Integer.toString(stationmodel.getDistance())));
         viewHolder.btSchedule.setOnClickListener(new View.OnClickListener() {
-            
+
             @Override
             public void onClick(View v) {
                 Intent goSchedule = new Intent(v.getContext(), StopSchedule.class);
@@ -76,10 +77,10 @@ public class RecyclerAdapterStation extends RecyclerView.Adapter<RecyclerAdapter
                 }
             });
 
-            viewHolder.btAddFav.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            viewHolder.btAddFav.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked) {
+                public void onClick(View v) {
+                    if (viewHolder.btAddFav.isChecked()) {
                         final FirebaseDatabase database = FirebaseDatabase.getInstance();
                         DatabaseReference userIdRef = database.getReference(mUserID).child(stationmodel.getId());
                         userIdRef.setValue(stationmodel);
