@@ -7,4 +7,6 @@
     <color name="snippet_text">#FFFFFF</color>
     <color name="snippet_text_background">#595959</color>
     <color name="snippet_title_background">#000959</color>
+    <color name="cardViewBackground">#FFF8EB</color>
+    <color name="buttonScheduleBackground">#FFDD6B</color>
 </resources>

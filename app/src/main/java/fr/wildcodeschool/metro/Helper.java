@@ -26,8 +26,10 @@ public class Helper {
     public final static String LIGNE_A = "11821949021891694";
     public final static String LIGNE_B = "11821949021892004";
     private final static String API_KEY = "&key=e083e127-3c7c-4d1b-b5c8-a5838936e4cf";
+    SingletonLocation singletonLocation = SingletonLocation.getLocationInstance();
+    UserLocation userLocation = singletonLocation.getUserLocation();
 
-    public static void extractStation(Context context, final Location locationuser, String line, final StationListener listener) {
+    public static void extractStation(Context context, final UserLocation userLocation, String line, final StationListener listener) {
 
         final RequestQueue requestQueue = Volley.newRequestQueue(context);
 
@@ -52,8 +54,8 @@ public class Helper {
                                 double x = numStation.getDouble("x");
                                 double y = numStation.getDouble("y");
                                 LatLng coordStation = new LatLng(y, x);
-                                StationMetro station = new StationMetro(name, y, x);
-                                int distance = round(locationuser.distanceTo(station.getLocation()));
+                                StationMetro station = new StationMetro(name, y, x, id);
+                                int distance = round(userLocation.getLocation().distanceTo(station.getLocation()));
                                 station.setDistance(distance);
                                 stations.add(station);
                             }
@@ -78,3 +80,5 @@ public class Helper {
         void onStationsLoaded(List<StationMetro> stations);
     }
 }
+
+

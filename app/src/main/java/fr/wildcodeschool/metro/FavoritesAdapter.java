@@ -1,61 +1,77 @@
 package fr.wildcodeschool.metro;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.ViewGroup;
-import android.widget.TextView;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
 public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.FavoritesViewHolder> {
-
+    private static String mUserID;
+    private FirebaseAuth mAuth;
     private List<StationMetro> mStationMetro;
 
-    // Provide a suitable constructor (depends on the kind of dataset)
     public FavoritesAdapter(List<StationMetro> stationMetro) {
         this.mStationMetro = stationMetro;
     }
 
-    // Create new views (invoked by the layout manager)
     @Override
     public FavoritesViewHolder onCreateViewHolder(ViewGroup parent, int position) {
-        // create a new view
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.favorites_layout, parent, false);
         FavoritesViewHolder favoritesViewHolder = new FavoritesViewHolder(view);
         return favoritesViewHolder;
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(FavoritesViewHolder holder, int position) {
-        // - get element from your dataset at this position
-
-        // - replace the contents of the view with that element
-        holder.mStationName.setText("Station name : " + mStationMetro.get(position).getName());
-        holder.mStationLine.setText("Tube Line : ");
-        holder.mDistance.setText("Distance : " + mStationMetro.get(position).getDistance() + "meters");
-        holder.mTubeSchedule.setText("Next Train : ");
-        holder.mInfoMessage.setText("Line info : ");
+    public void onBindViewHolder(final FavoritesViewHolder holder, int position) {
+        final StationMetro station = mStationMetro.get(position);
+        holder.mStationName.setText(station.getName());
+        holder.mStationLine.setText("");
+        holder.mDistance.setText(String.format(holder.mDistance.getContext().getString(R.string.distance), station.getDistance()));
+        holder.mTubeSchedule.setText("");
+        holder.btDeleteFav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+                builder.setTitle(R.string.Important_message);
+                builder.setMessage(R.string.add_favorite);
+                builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        mAuth = FirebaseAuth.getInstance();
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        mUserID = user.getUid();
+                        database.getReference(mUserID).child(station.getId()).removeValue();
+                    }
+                });
+                builder.setNegativeButton(R.string.no, null);
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
         return mStationMetro.size();
     }
 
-    // Provide a reference to the views for each data item
-    // Complex data items may need more than one view per item, and
-    // you provide access to all the views for a data item in a view holder
     public static class FavoritesViewHolder extends RecyclerView.ViewHolder {
-
-        // each data item is just a string in this case
         public TextView mStationName;
         public TextView mStationLine;
         public TextView mDistance;
         public TextView mTubeSchedule;
-        public TextView mInfoMessage;
+        public Button btDeleteFav;
 
         public FavoritesViewHolder(View favoritesView) {
             super(favoritesView);
@@ -63,8 +79,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Favo
             mStationLine = favoritesView.findViewById(R.id.tvStationLine);
             mDistance = favoritesView.findViewById(R.id.tvDistance);
             mTubeSchedule = favoritesView.findViewById(R.id.tvTubeSchedule);
-            mInfoMessage = favoritesView.findViewById(R.id.tvInfoMessage);
+            btDeleteFav = favoritesView.findViewById(R.id.btAddFav);
         }
     }
 }
-

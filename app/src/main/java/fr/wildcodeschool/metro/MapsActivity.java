@@ -14,18 +14,10 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -39,7 +31,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
-import java.util.Map;
 
 import static fr.wildcodeschool.metro.Helper.LIGNE_A;
 import static fr.wildcodeschool.metro.Helper.LIGNE_B;
@@ -67,11 +58,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             case R.id.btMapView:
                 Intent goToMapView = new Intent(MapsActivity.this, MapsActivity.class);
-                goToMapView.putExtra("mLocationUser", mLocationUser);
                 startActivity(goToMapView);
+                return true;
             case R.id.btListView:
-                Intent goToListView = new Intent(MapsActivity.this, ListViewStation.class);
-                goToListView.putExtra("mLocationUser", mLocationUser);
+                Intent goToListView = new Intent(MapsActivity.this, RecycleViewStation.class);
                 startActivity(goToListView);
                 return true;
             case R.id.itemMenuRegister:
@@ -84,10 +74,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 return true;
             case R.id.itemMenuFav:
                 Intent goToFavorites = new Intent(MapsActivity.this, Favorites.class);
-                goToFavorites.putExtra("mLocationUser", mLocationUser);
                 startActivity(goToFavorites);
+                return true;
             case R.id.itemMenuLogout:
                 mAuth.signOut();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -151,6 +142,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 mLocationUser = new Location("");
                 mLocationUser.setLatitude(lat);
                 mLocationUser.setLongitude(lng);
+                SingletonLocation singletonLocation = SingletonLocation.getLocationInstance();
+                singletonLocation.setUserLocation(mLocationUser);
                 if (mMap != null && !mHasMarkerCreated) {
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(coordinate));
                     mMap.setMyLocationEnabled(true);
@@ -177,8 +170,18 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             @Override
             public void onSuccess(Location location) {
-                if (location != null && mHasMarkerCreated) {
-                    createMarkers();
+                if (location != null) {
+                    mLocationUser = location;
+                    SingletonLocation singletonLocation = SingletonLocation.getLocationInstance();
+                    singletonLocation.openUserLocation(mLocationUser);
+                    if (!mHasMarkerCreated && mMap != null) {
+                        double lat = location.getLatitude();
+                        double lng = location.getLongitude();
+                        LatLng coordinate = new LatLng(lat, lng);
+                        mMap.moveCamera(CameraUpdateFactory.newLatLng(coordinate));
+                        mMap.setMyLocationEnabled(true);
+                        createMarkers();
+                    }
                 }
             }
         });
@@ -195,24 +198,37 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.getUiSettings().setZoomControlsEnabled(true);
         mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
         mMap.setMinZoomPreference(12.0f);
         if (mLocationUser != null && !mHasMarkerCreated) {
+            double lat = mLocationUser.getLatitude();
+            double lng = mLocationUser.getLongitude();
+            LatLng coordinate = new LatLng(lat, lng);
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(coordinate));
             createMarkers();
+            SingletonLocation singletonLocation = SingletonLocation.getLocationInstance();
+            singletonLocation.setUserLocation(mLocationUser);
         }
     }
 
     private void createMarkers() {
+        SingletonLocation singletonLocation = SingletonLocation.getLocationInstance();
+        final UserLocation userLocation = singletonLocation.getUserLocation();
         mHasMarkerCreated = true;
         mMap.setInfoWindowAdapter(new CustomInfoMarkerAdapter(MapsActivity.this));
-        Helper.extractStation(MapsActivity.this, mLocationUser, LIGNE_A, new Helper.StationListener() {
+        Helper.extractStation(MapsActivity.this, userLocation, LIGNE_A, new Helper.StationListener() {
             @Override
             public void onStationsLoaded(List<StationMetro> stations) {
                 for (StationMetro station : stations) {
-                    int distance = round(mLocationUser.distanceTo(station.getLocation()));
+                    int distance = round(userLocation.getLocation().distanceTo(station.getLocation()));
                     LatLng coordStation = new LatLng(station.getLatitude(), station.getLongitude());
                     mMap.addMarker(new MarkerOptions()
                             .position(coordStation)
@@ -223,11 +239,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
 
-        Helper.extractStation(MapsActivity.this, mLocationUser, LIGNE_B, new Helper.StationListener() {
+        Helper.extractStation(MapsActivity.this, userLocation, LIGNE_B, new Helper.StationListener() {
             @Override
             public void onStationsLoaded(List<StationMetro> stations) {
                 for (StationMetro station : stations) {
-                    int distance = round(mLocationUser.distanceTo(station.getLocation()));
+                    int distance = round(userLocation.getLocation().distanceTo(station.getLocation()));
                     LatLng coordStation = new LatLng(station.getLatitude(), station.getLongitude());
                     mMap.addMarker(new MarkerOptions()
                             .position(coordStation)
