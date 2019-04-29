@@ -5,29 +5,27 @@ import android.location.Location;
 public class SingletonLocation {
 
     private static SingletonLocation locationInstance;
+    private UserLocation userLocation;
+
+    private SingletonLocation() {
+    }
 
     public static SingletonLocation getLocationInstance() {
-        if(locationInstance == null) {
+        if (locationInstance == null) {
             locationInstance = new SingletonLocation();
         }
         return locationInstance;
     }
 
-    private SingletonLocation() {}
-
-    private UserLocation userLocation;
-
     public void openUserLocation(Location location) {
         userLocation = new UserLocation(location);
+    }
+
+    public UserLocation getUserLocation() {
+        return userLocation;
     }
 
     public void setUserLocation(Location location) {
         userLocation.setLocation(location);
     }
-
-    public UserLocation getUserLocation(){
-        return userLocation;
-    }
-
-
 }
