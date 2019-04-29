@@ -55,11 +55,15 @@
             app:layout_constraintStart_toEndOf="@+id/btSchedule"
             tools:text="Distance" />
 
-        <Button
+        <ToggleButton
             android:id="@+id/btAddFav"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:background="@android:drawable/btn_star_big_on"
+            android:background="@drawable/fav_checked"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:textOff=""
+            android:textOn=""
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
