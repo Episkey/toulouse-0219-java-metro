@@ -41,8 +41,6 @@ public class Favorites extends AppCompatActivity {
         super.onResume();
         SingletonLocation singletonLocation = SingletonLocation.getLocationInstance();
         final UserLocation userLocation = singletonLocation.getUserLocation();
-        //Intent intent = getIntent();
-        //final Location locationUser = intent.getParcelableExtra("mLocationUser");
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         mRecyclerView = findViewById(R.id.favorites_recycler_view);
