@@ -44,6 +44,7 @@ public class RecyclerAdapterStation extends RecyclerView.Adapter<RecyclerAdapter
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
         final StationMetro stationmodel = stationsList.get(i);
+        viewHolder.btAddFav.setChecked(false);
         viewHolder.mStationName.setText(stationmodel.getName());
         viewHolder.mStationLine.setText("");
         viewHolder.mDistance.setText(String.format(viewHolder.mDistance.getContext().getString(R.string.distance_metro), Integer.toString(stationmodel.getDistance())));
@@ -76,15 +77,16 @@ public class RecyclerAdapterStation extends RecyclerView.Adapter<RecyclerAdapter
                 }
             });
 
-            viewHolder.btAddFav.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            viewHolder.btAddFav.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked) {
+                public void onClick(View v) {
+                    if (viewHolder.btAddFav.isChecked()) {
                         final FirebaseDatabase database = FirebaseDatabase.getInstance();
                         DatabaseReference userIdRef = database.getReference(mUserID).child(stationmodel.getId());
                         userIdRef.setValue(stationmodel);
                         viewHolder.btAddFav.setChecked(true);
-                    } else {
+                    }
+                    else {
                         AlertDialog.Builder builder = new AlertDialog.Builder(viewHolder.btAddFav.getContext());
                         builder.setTitle(R.string.Important_message);
                         builder.setMessage(R.string.add_favorite);
@@ -109,6 +111,15 @@ public class RecyclerAdapterStation extends RecyclerView.Adapter<RecyclerAdapter
                     }
                 }
             });
+            /*viewHolder.btAddFav.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    viewHolder.btAddFav.setChecked(false);
+                    if (isChecked) {
+
+                    }
+                }
+            });*/
         } else {
             viewHolder.btAddFav.setOnClickListener(new View.OnClickListener() {
                 @Override

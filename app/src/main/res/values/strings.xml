@@ -2,7 +2,7 @@
     <string name="app_name">Oéssit</string>
     <string name="title_activity_maps">Oéssit</string>
     <string name="title">Message important</string>
-    <string name="textMessageConfirmation">cette application requiert l'accès au gps. Veuillez accepter ou désinstaller l'application.</string>
+    <string name="textMessageConfirmation">cette application requiert l\'accès au gps. Veuillez accepter ou désinstaller l\'application.</string>
     <string name="accept">Accepter</string>
     <string name="decline">Refuser</string>
     <string name="item">item</string>
