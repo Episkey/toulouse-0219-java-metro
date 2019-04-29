@@ -1,6 +1,7 @@
 package fr.wildcodeschool.metro;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -37,7 +38,14 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Favo
         holder.mStationName.setText(station.getName());
         holder.mStationLine.setText("");
         holder.mDistance.setText(String.format(holder.mDistance.getContext().getString(R.string.distance), station.getDistance()));
-        holder.mTubeSchedule.setText("");
+        holder.btSchedule.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent goSchedule = new Intent(v.getContext(), StopSchedule.class);
+                goSchedule.putExtra("STATION_ID", station.getId());
+                v.getContext().startActivity(goSchedule);
+            }
+        });
         holder.btDeleteFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,15 +78,15 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Favo
         public TextView mStationName;
         public TextView mStationLine;
         public TextView mDistance;
-        public TextView mTubeSchedule;
         public Button btDeleteFav;
+        public Button btSchedule;
 
         public FavoritesViewHolder(View favoritesView) {
             super(favoritesView);
             mStationName = favoritesView.findViewById(R.id.tvStationName);
             mStationLine = favoritesView.findViewById(R.id.tvStationLine);
             mDistance = favoritesView.findViewById(R.id.tvDistance);
-            mTubeSchedule = favoritesView.findViewById(R.id.tvTubeSchedule);
+            btSchedule = favoritesView.findViewById(R.id.btSchedule);
             btDeleteFav = favoritesView.findViewById(R.id.btAddFav);
         }
     }
