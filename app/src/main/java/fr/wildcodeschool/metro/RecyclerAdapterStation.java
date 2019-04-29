@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -59,10 +58,8 @@ public class RecyclerAdapterStation extends RecyclerView.Adapter<RecyclerAdapter
             }
         });
 
-        viewHolder.btAddFav.setChecked(false);
         mAuth = FirebaseAuth.getInstance();
         final FirebaseUser user = mAuth.getCurrentUser();
-
         if (user != null) {
             mUserID = user.getUid();
             final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -79,6 +76,7 @@ public class RecyclerAdapterStation extends RecyclerView.Adapter<RecyclerAdapter
                 public void onCancelled(DatabaseError databaseError) {
                 }
             });
+
             viewHolder.btAddFav.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -101,7 +99,12 @@ public class RecyclerAdapterStation extends RecyclerView.Adapter<RecyclerAdapter
                                 database.getReference(mUserID).child(stationmodel.getId()).removeValue();
                             }
                         });
-                        builder.setNegativeButton(R.string.no, null);
+                        builder.setNegativeButton(R.string.decline, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                viewHolder.btAddFav.setChecked(true);
+                            }
+                        });
                         AlertDialog dialog = builder.create();
                         dialog.show();
                     }
@@ -120,6 +123,7 @@ public class RecyclerAdapterStation extends RecyclerView.Adapter<RecyclerAdapter
                             v.getContext().startActivity(new Intent(viewHolder.btAddFav.getContext(), MainActivity.class));
                         }
                     });
+
                     builder.setNegativeButton(R.string.decline, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -135,7 +139,6 @@ public class RecyclerAdapterStation extends RecyclerView.Adapter<RecyclerAdapter
 
     @Override
     public int getItemCount() {
-
         return stationsList.size();
     }
 
