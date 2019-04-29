@@ -39,17 +39,14 @@ public class StopSchedule extends Activity {
                             JSONObject number = stopAreas.getJSONObject(0);
                             String directionName = number.getString("name");
                             JSONArray schedules = number.getJSONArray("schedules");
-
                             JSONObject num = (JSONObject) schedules.get(0);
                             JSONObject destination = (JSONObject) num.get("destination");
                             String stationName = destination.getString("name");
                             JSONArray journeys = num.getJSONArray("journeys");
                             JSONObject nextMetro = (JSONObject) journeys.get(0);
                             String waitime = nextMetro.getString("waiting_time");
-
                             JSONObject nextMetro2 = (JSONObject) journeys.get(1);
                             String waitsecond = nextMetro2.getString("waiting_time");
-
                             JSONObject num2 = (JSONObject) schedules.get(1);
                             JSONObject destination2 = (JSONObject) num2.get("destination");
                             String stationName2 = destination2.getString("name");
@@ -61,21 +58,18 @@ public class StopSchedule extends Activity {
 
                             TextView directionNam = findViewById(R.id.tvStopName);
                             directionNam.setText(directionName);
-
                             TextView stationNam = findViewById(R.id.tvDirection1);
                             stationNam.setText(stationName);
                             TextView waitIM = findViewById(R.id.tvNext1);
                             waitIM.setText(waitime);
                             TextView waitSecon = findViewById(R.id.tvNext2);
                             waitSecon.setText(waitsecond);
-
                             TextView otherWay = findViewById(R.id.tvDirection2);
                             otherWay.setText(stationName2);
                             TextView dep1 = findViewById(R.id.tvDeparture1);
                             dep1.setText(waitime2);
                             TextView dep2 = findViewById(R.id.tvDeparture2);
                             dep2.setText(waitsecond2);
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -90,7 +84,6 @@ public class StopSchedule extends Activity {
                 }
         );
         requestQueue.add(jsonObjectRequest);
-
     }
 
     @Override
