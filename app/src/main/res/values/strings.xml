@@ -55,4 +55,6 @@
     <string name="_1st_train">1er métro</string>
     <string name="direction">DIRECTION</string>
     <string name="distance_metro">Distance : %s mètres</string>
+    <string name="listview">ListView</string>
+    <string name="mapview">MapView</string>
 </resources>
