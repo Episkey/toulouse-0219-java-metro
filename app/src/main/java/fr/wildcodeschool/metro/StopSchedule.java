@@ -1,8 +1,9 @@
 package fr.wildcodeschool.metro;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.os.Handler;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -17,18 +18,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class StopSchedule extends AppCompatActivity {
+public class StopSchedule extends Activity {
 
     private final static String API_KEY = "&key=e083e127-3c7c-4d1b-b5c8-a5838936e4cf";
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_stop_schedule);
-
-        Intent intent = getIntent();
-        String stationId = intent.getStringExtra("STATION_ID");
-
+    public void loadSchedule(String stationId) {
         final RequestQueue requestQueue = Volley.newRequestQueue(this);
 
         String url = "https://api.tisseo.fr/v1/stops_schedules.json?&stopsList=" + stationId + "&timetableByArea=1&number=2" + API_KEY;
@@ -52,6 +46,7 @@ public class StopSchedule extends AppCompatActivity {
                             JSONArray journeys = num.getJSONArray("journeys");
                             JSONObject nextMetro = (JSONObject) journeys.get(0);
                             String waitime = nextMetro.getString("waiting_time");
+
                             JSONObject nextMetro2 = (JSONObject) journeys.get(1);
                             String waitsecond = nextMetro2.getString("waiting_time");
 
@@ -95,7 +90,25 @@ public class StopSchedule extends AppCompatActivity {
                 }
         );
         requestQueue.add(jsonObjectRequest);
+
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_stop_schedule);
+
+        Intent intent = getIntent();
+        final String stationId = intent.getStringExtra("STATION_ID");
+
+        final Handler handler = new Handler();
+        final Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                loadSchedule(stationId);
+                handler.postDelayed(this, 10000);
+            }
+        };
+        handler.postDelayed(runnable, 0);
     }
 }
-
-
