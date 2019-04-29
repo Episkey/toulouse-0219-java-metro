@@ -3,11 +3,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/listView"
-        android:icon="@android:drawable/ic_dialog_map"
-        android:title="@string/buttonFavorite"
+        android:id="@+id/btMapView"
+        android:icon="@drawable/map"
+        android:title="@string/mapview"
         app:showAsAction="ifRoom" />
-
+    <item
+        android:id="@+id/btListView"
+        android:icon="@drawable/ic_reorder_black_24dp"
+        android:title="@string/listview"
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/itemMenuRegister"
         android:title="@string/register" />

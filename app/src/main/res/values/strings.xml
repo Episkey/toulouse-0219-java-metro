@@ -2,7 +2,7 @@
     <string name="app_name">Oéssit</string>
     <string name="title_activity_maps">Oéssit</string>
     <string name="title">Message important</string>
-    <string name="textMessageConfirmation">cette application requiert l'accès au gps. Veuillez accepter ou désinstaller l'application.</string>
+    <string name="textMessageConfirmation">cette application requiert l\'accès au gps. Veuillez accepter ou désinstaller l\'application.</string>
     <string name="accept">Accepter</string>
     <string name="decline">Refuser</string>
     <string name="item">item</string>
@@ -55,4 +55,6 @@
     <string name="_1st_train">1er métro</string>
     <string name="direction">DIRECTION</string>
     <string name="distance_metro">Distance : %s mètres</string>
+    <string name="listview">ListView</string>
+    <string name="mapview">MapView</string>
 </resources>
