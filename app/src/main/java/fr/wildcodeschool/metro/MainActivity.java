@@ -8,6 +8,9 @@ import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -133,5 +136,45 @@ public class MainActivity extends AppCompatActivity {
     private void signInGoogle() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menulauncher, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+            case R.id.btMapView:
+                Intent goToMapView = new Intent(MainActivity.this, MapsActivity.class);
+                startActivity(goToMapView);
+                return true;
+            case R.id.btListView:
+                Intent goToListView = new Intent(MainActivity.this, RecycleViewStation.class);
+                startActivity(goToListView);
+                return true;
+            case R.id.itemMenuRegister:
+                Intent goToRegisterView = new Intent(MainActivity.this, RegisterActivity.class);
+                startActivity(goToRegisterView);
+                return true;
+            case R.id.itemMenuLogin:
+                Intent goToMainActivity = new Intent(MainActivity.this, MainActivity.class);
+                startActivity(goToMainActivity);
+                return true;
+            case R.id.itemMenuFav:
+                Intent goToFavorites = new Intent(MainActivity.this, Favorites.class);
+                startActivity(goToFavorites);
+                return true;
+            case R.id.itemMenuLogout:
+                FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                mAuth.signOut();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
