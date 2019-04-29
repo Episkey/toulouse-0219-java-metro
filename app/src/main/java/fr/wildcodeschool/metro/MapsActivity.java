@@ -56,9 +56,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
 
-            case R.id.listView:
+            case R.id.btMapView:
+                Intent goToMapView = new Intent(MapsActivity.this, MapsActivity.class);
+                startActivity(goToMapView);
+                return true;
+            case R.id.btListView:
                 Intent goToListView = new Intent(MapsActivity.this, RecycleViewStation.class);
-                goToListView.putExtra("mLocationUser", mLocationUser);
                 startActivity(goToListView);
                 return true;
             case R.id.itemMenuRegister:
@@ -71,7 +74,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 return true;
             case R.id.itemMenuFav:
                 Intent goToFavorites = new Intent(MapsActivity.this, Favorites.class);
-                goToFavorites.putExtra("mLocationUser", mLocationUser);
                 startActivity(goToFavorites);
                 return true;
             case R.id.itemMenuLogout:
@@ -140,6 +142,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 mLocationUser = new Location("");
                 mLocationUser.setLatitude(lat);
                 mLocationUser.setLongitude(lng);
+                SingletonLocation singletonLocation = SingletonLocation.getLocationInstance();
+                singletonLocation.setUserLocation(mLocationUser);
                 if (mMap != null && !mHasMarkerCreated) {
                     mMap.moveCamera(CameraUpdateFactory.newLatLng(coordinate));
                     mMap.setMyLocationEnabled(true);
@@ -168,6 +172,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void onSuccess(Location location) {
                 if (location != null) {
                     mLocationUser = location;
+                    SingletonLocation singletonLocation = SingletonLocation.getLocationInstance();
+                    singletonLocation.openUserLocation(mLocationUser);
                     if (!mHasMarkerCreated && mMap != null) {
                         double lat = location.getLatitude();
                         double lng = location.getLongitude();
@@ -208,17 +214,21 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             LatLng coordinate = new LatLng(lat, lng);
             mMap.moveCamera(CameraUpdateFactory.newLatLng(coordinate));
             createMarkers();
+            SingletonLocation singletonLocation = SingletonLocation.getLocationInstance();
+            singletonLocation.setUserLocation(mLocationUser);
         }
     }
 
     private void createMarkers() {
+        SingletonLocation singletonLocation = SingletonLocation.getLocationInstance();
+        final UserLocation userLocation = singletonLocation.getUserLocation();
         mHasMarkerCreated = true;
         mMap.setInfoWindowAdapter(new CustomInfoMarkerAdapter(MapsActivity.this));
-        Helper.extractStation(MapsActivity.this, mLocationUser, LIGNE_A, new Helper.StationListener() {
+        Helper.extractStation(MapsActivity.this, userLocation, LIGNE_A, new Helper.StationListener() {
             @Override
             public void onStationsLoaded(List<StationMetro> stations) {
                 for (StationMetro station : stations) {
-                    int distance = round(mLocationUser.distanceTo(station.getLocation()));
+                    int distance = round(userLocation.getLocation().distanceTo(station.getLocation()));
                     LatLng coordStation = new LatLng(station.getLatitude(), station.getLongitude());
                     mMap.addMarker(new MarkerOptions()
                             .position(coordStation)
@@ -229,11 +239,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
 
-        Helper.extractStation(MapsActivity.this, mLocationUser, LIGNE_B, new Helper.StationListener() {
+        Helper.extractStation(MapsActivity.this, userLocation, LIGNE_B, new Helper.StationListener() {
             @Override
             public void onStationsLoaded(List<StationMetro> stations) {
                 for (StationMetro station : stations) {
-                    int distance = round(mLocationUser.distanceTo(station.getLocation()));
+                    int distance = round(userLocation.getLocation().distanceTo(station.getLocation()));
                     LatLng coordStation = new LatLng(station.getLatitude(), station.getLongitude());
                     mMap.addMarker(new MarkerOptions()
                             .position(coordStation)
