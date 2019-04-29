@@ -70,6 +70,16 @@
             app:layout_constraintStart_toEndOf="@+id/tvTubeSchedule"
             app:layout_constraintTop_toBottomOf="@+id/tvDistance" />
 
+        <Button
+            android:id="@+id/btSchedule"
+            android:layout_width="125dp"
+            android:layout_height="36dp"
+            android:background="@color/buttonScheduleBackground"
+            android:text="@string/timetable"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvStationLine" />
+
     </android.support.constraint.ConstraintLayout>
 
 </android.support.v7.widget.CardView>
