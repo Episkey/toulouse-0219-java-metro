@@ -3,5 +3,4 @@
         android:state_checked="true" />
     <item android:drawable="@android:drawable/btn_star_big_off"
         android:state_checked="false" />
-
 </selector>
