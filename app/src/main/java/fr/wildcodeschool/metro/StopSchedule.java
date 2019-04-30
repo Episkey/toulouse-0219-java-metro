@@ -25,8 +25,50 @@ import org.json.JSONObject;
 public class StopSchedule extends Activity {
 
     private final static String API_KEY = "&key=e083e127-3c7c-4d1b-b5c8-a5838936e4cf";
-    private static int REFRESH_DELAY = 1000;
+    private static int REFRESH_DELAY = 10000;
     private FirebaseAuth mAuth;
+    SingletonLocation singletonLocation = SingletonLocation.getLocationInstance();
+    UserLocation userLocation = singletonLocation.getUserLocation();
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menulauncher, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+            case R.id.btMapView:
+                Intent goToMapView = new Intent(StopSchedule.this, MapsActivity.class);
+                startActivity(goToMapView);
+                return true;
+            case R.id.btListView:
+                Intent goToListView = new Intent(StopSchedule.this, RecycleViewStation.class);
+                startActivity(goToListView);
+                return true;
+            case R.id.itemMenuRegister:
+                Intent goToRegisterView = new Intent(StopSchedule.this, RegisterActivity.class);
+                startActivity(goToRegisterView);
+                return true;
+            case R.id.itemMenuLogin:
+                Intent goToMainActivity = new Intent(StopSchedule.this, MainActivity.class);
+                startActivity(goToMainActivity);
+                return true;
+            case R.id.itemMenuFav:
+                Intent goToFavorites = new Intent(StopSchedule.this, Favorites.class);
+                startActivity(goToFavorites);
+                return true;
+            case R.id.itemMenuLogout:
+                FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                mAuth.signOut();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     public void loadSchedule(String stationId) {
         final RequestQueue requestQueue = Volley.newRequestQueue(this);
@@ -91,47 +133,6 @@ public class StopSchedule extends Activity {
         );
         requestQueue.add(jsonObjectRequest);
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menulauncher, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-
-            case R.id.btMapView:
-                Intent goToMapView = new Intent(StopSchedule.this, MapsActivity.class);
-                startActivity(goToMapView);
-                return true;
-            case R.id.btListView:
-                Intent goToListView = new Intent(StopSchedule.this, RecycleViewStation.class);
-                startActivity(goToListView);
-                return true;
-            case R.id.itemMenuRegister:
-                Intent goToRegisterView = new Intent(StopSchedule.this, RegisterActivity.class);
-                startActivity(goToRegisterView);
-                return true;
-            case R.id.itemMenuLogin:
-                Intent goToMainActivity = new Intent(StopSchedule.this, MainActivity.class);
-                startActivity(goToMainActivity);
-                return true;
-            case R.id.itemMenuFav:
-                Intent goToFavorites = new Intent(StopSchedule.this, Favorites.class);
-                startActivity(goToFavorites);
-                return true;
-            case R.id.itemMenuLogout:
-                FirebaseAuth mAuth = FirebaseAuth.getInstance();
-                mAuth.signOut();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
