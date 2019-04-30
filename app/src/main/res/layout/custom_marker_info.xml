@@ -1,42 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal">
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/listViewCardView"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    app:cardBackgroundColor="@color/cardViewBackground"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="5dp">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        >
+        android:padding="2sp">
 
         <TextView
-            android:id="@+id/title"
-            android:layout_width="match_parent"
+            android:id="@+id/tvTitle"
+            style="@style/stationName"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/buttonScheduleBackground"
-            android:ellipsize="end"
-            android:gravity="center"
-            android:maxLines="1"
-            android:padding="5sp"
             android:textColor="@color/common_google_signin_btn_text_dark_default"
             android:textSize="12sp"
-            android:textStyle="bold" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Station Name" />
 
         <TextView
-            android:id="@+id/snippet"
-            android:layout_width="match_parent"
+            android:id="@+id/tvSnippet"
+            style="@style/textRecyclerView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/cardViewBackground"
-            android:ellipsize="end"
-            android:gravity="left"
-            android:maxLines="10"
-            android:padding="5sp"
             android:textColor="@color/common_google_signin_btn_text_dark_focused"
             android:textSize="12sp"
-            android:textStyle="bold" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+            tools:text="Tube Line" />
 
-    </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
 
-</LinearLayout>
+</android.support.v7.widget.CardView>
