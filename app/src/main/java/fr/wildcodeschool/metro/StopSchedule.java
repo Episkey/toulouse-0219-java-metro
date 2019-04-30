@@ -1,9 +1,9 @@
 package fr.wildcodeschool.metro;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -22,7 +22,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class StopSchedule extends Activity {
+public class StopSchedule extends AppCompatActivity {
 
     private final static String API_KEY = "&key=e083e127-3c7c-4d1b-b5c8-a5838936e4cf";
     private static int REFRESH_DELAY = 1000;
