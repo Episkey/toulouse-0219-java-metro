@@ -25,7 +25,7 @@ import org.json.JSONObject;
 public class StopSchedule extends AppCompatActivity {
 
     private final static String API_KEY = "&key=e083e127-3c7c-4d1b-b5c8-a5838936e4cf";
-    private static int REFRESH_DELAY = 10000;
+    private static int REFRESH_DELAY = 1000;
     private FirebaseAuth mAuth;
     SingletonLocation singletonLocation = SingletonLocation.getLocationInstance();
     UserLocation userLocation = singletonLocation.getUserLocation();
