@@ -4,12 +4,12 @@
 
     <item
         android:id="@+id/btMapView"
-        android:icon="@drawable/map"
+        android:icon="@android:drawable/ic_dialog_map"
         android:title="@string/mapview"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/btListView"
-        android:icon="@drawable/ic_reorder_black_24dp"
+        android:icon="@drawable/listview"
         android:title="@string/listview"
         app:showAsAction="ifRoom" />
     <item
