@@ -23,7 +23,7 @@
             android:gravity="center"
             android:maxLines="1"
             android:padding="5sp"
-            android:textColor="@color/common_google_signin_btn_text_dark_focused"
+            android:textColor="@color/common_google_signin_btn_text_dark_default"
             android:textSize="12sp"
             android:textStyle="bold"
             tools:layout_conversion_absoluteHeight="26dp"

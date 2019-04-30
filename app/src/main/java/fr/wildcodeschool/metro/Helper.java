@@ -1,7 +1,6 @@
 package fr.wildcodeschool.metro;
 
 import android.content.Context;
-import android.location.Location;
 import android.util.Log;
 
 import com.android.volley.Request;
