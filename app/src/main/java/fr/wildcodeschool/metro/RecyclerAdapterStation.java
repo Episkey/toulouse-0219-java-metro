@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -34,7 +34,6 @@ public class RecyclerAdapterStation extends RecyclerView.Adapter<RecyclerAdapter
 
     @Override
     public RecyclerAdapterStation.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recycle_view_station, parent, false);
         ViewHolder viewHolder = new ViewHolder(itemView);
@@ -42,12 +41,14 @@ public class RecyclerAdapterStation extends RecyclerView.Adapter<RecyclerAdapter
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
         final StationMetro stationmodel = stationsList.get(i);
+        viewHolder.btAddFav.setChecked(false);
         viewHolder.mStationName.setText(stationmodel.getName());
         viewHolder.mStationLine.setText("");
         viewHolder.mDistance.setText(String.format(viewHolder.mDistance.getContext().getString(R.string.distance_metro), Integer.toString(stationmodel.getDistance())));
         viewHolder.btSchedule.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 Intent goSchedule = new Intent(v.getContext(), StopSchedule.class);
@@ -55,57 +56,88 @@ public class RecyclerAdapterStation extends RecyclerView.Adapter<RecyclerAdapter
                 v.getContext().startActivity(goSchedule);
             }
         });
-        viewHolder.btAddFav.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                mAuth = FirebaseAuth.getInstance();
-                FirebaseUser user = mAuth.getCurrentUser();
 
-                if (user != null) {
-                    mUserID = user.getUid();
-                    final FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    final DatabaseReference userIdRef = database.getReference(mUserID).child(stationmodel.getId());
-                    userIdRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            if (dataSnapshot.getValue() == null) {
-                                userIdRef.setValue(stationmodel);
-                                Toast.makeText(v.getContext(), String.format(v.getContext().getString(R.string.station_added), stationmodel.getName()), Toast.LENGTH_LONG).show();
-                            } else {
-                                AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(v.getContext());
-                                builder.setTitle(R.string.Important_message);
-                                builder.setMessage(R.string.already_in_your_fav);
-                                builder.setNegativeButton(R.string.ok, null);
-                                AlertDialog dialog = builder.create();
-                                dialog.show();
+        mAuth = FirebaseAuth.getInstance();
+        final FirebaseUser user = mAuth.getCurrentUser();
+        if (user != null) {
+            mUserID = user.getUid();
+            final FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference userIdRef = database.getReference(mUserID).child(stationmodel.getId());
+            userIdRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.getValue() != null) {
+                        viewHolder.btAddFav.setChecked(true);
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
+
+            viewHolder.btAddFav.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (viewHolder.btAddFav.isChecked()) {
+                        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        DatabaseReference userIdRef = database.getReference(mUserID).child(stationmodel.getId());
+                        userIdRef.setValue(stationmodel);
+                        viewHolder.btAddFav.setChecked(true);
+                    } else {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(viewHolder.btAddFav.getContext());
+                        builder.setTitle(R.string.Important_message);
+                        builder.setMessage(R.string.add_favorite);
+                        builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                final FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                mAuth = FirebaseAuth.getInstance();
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                mUserID = user.getUid();
+                                database.getReference(mUserID).child(stationmodel.getId()).removeValue();
                             }
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                        }
-                    });
-                } else {
+                        });
+                        builder.setNegativeButton(R.string.decline, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                viewHolder.btAddFav.setChecked(true);
+                            }
+                        });
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                    }
+                }
+            });
+        } else {
+            viewHolder.btAddFav.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(final View v) {
                     AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(v.getContext());
                     builder.setTitle(R.string.Important_message);
                     builder.setMessage(R.string.warning);
                     builder.setPositiveButton(R.string.sign_in, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            v.getContext().startActivity(new Intent(v.getContext(), MainActivity.class));
+                            v.getContext().startActivity(new Intent(viewHolder.btAddFav.getContext(), MainActivity.class));
                         }
                     });
-                    builder.setNegativeButton(R.string.decline, null);
+
+                    builder.setNegativeButton(R.string.decline, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            viewHolder.btAddFav.setChecked(false);
+                        }
+                    });
                     AlertDialog dialog = builder.create();
                     dialog.show();
                 }
-            }
-        });
+            });
+        }
     }
 
     @Override
     public int getItemCount() {
-
         return stationsList.size();
     }
 
@@ -115,7 +147,7 @@ public class RecyclerAdapterStation extends RecyclerView.Adapter<RecyclerAdapter
         public TextView mStationLine;
         public TextView mDistance;
         public Button btSchedule;
-        public Button btAddFav;
+        public ToggleButton btAddFav;
 
         public ViewHolder(View v) {
             super(v);

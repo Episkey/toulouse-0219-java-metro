@@ -2,13 +2,15 @@ package fr.wildcodeschool.metro;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -36,8 +38,8 @@ public class Favorites extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Intent intent = getIntent();
-        final Location locationUser = intent.getParcelableExtra("mLocationUser");
+        SingletonLocation singletonLocation = SingletonLocation.getLocationInstance();
+        final UserLocation userLocation = singletonLocation.getUserLocation();
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
         mRecyclerView = findViewById(R.id.favorites_recycler_view);
@@ -55,7 +57,7 @@ public class Favorites extends AppCompatActivity {
                     mStationMetro.clear();
                     for (DataSnapshot stationSnapshot : dataSnapshot.getChildren()) {
                         StationMetro station = stationSnapshot.getValue(StationMetro.class);
-                        int distance = round(locationUser.distanceTo(station.getLocation()));
+                        int distance = round(userLocation.getLocation().distanceTo(station.getLocation()));
                         station.setDistance(distance);
                         mStationMetro.add(station);
                         //TODO: appel API avec id pour avoir les horaires
@@ -94,5 +96,45 @@ public class Favorites extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.favorites);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menulauncher, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+            case R.id.btMapView:
+                Intent goToMapView = new Intent(Favorites.this, MapsActivity.class);
+                startActivity(goToMapView);
+                return true;
+            case R.id.btListView:
+                Intent goToListView = new Intent(Favorites.this, RecycleViewStation.class);
+                startActivity(goToListView);
+                return true;
+            case R.id.itemMenuRegister:
+                Intent goToRegisterView = new Intent(Favorites.this, RegisterActivity.class);
+                startActivity(goToRegisterView);
+                return true;
+            case R.id.itemMenuLogin:
+                Intent goToMainActivity = new Intent(Favorites.this, MainActivity.class);
+                startActivity(goToMainActivity);
+                return true;
+            case R.id.itemMenuFav:
+                Intent goToFavorites = new Intent(Favorites.this, Favorites.class);
+                startActivity(goToFavorites);
+                return true;
+            case R.id.itemMenuLogout:
+                FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                mAuth.signOut();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
